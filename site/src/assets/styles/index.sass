@@ -1,0 +1,105 @@
+@import './theme.css'
+@import './vars.sass'
+@import './fonts.sass'
+@import './modificators.sass'
+
+@import '~bootstrap/scss/bootstrap.scss'
+
+
+#root
+  min-height: 100vh
+
+*
+  font-display: auto
+  color: $main-text
+  margin: 0
+  padding: 0
+  box-sizing: border-box
+  -webkit-font-smoothing: antialiased
+
+body
+  background-color: $main-background
+  .App
+    width: 100vw
+    height: 100%
+    min-height: 100vh
+    @extend .d-flex
+    @extend .flex-column
+    .content
+      position: relative
+      width: 100vw
+      overflow-x: hidden
+      @extend .flex-grow-1
+      @extend .d-flex
+      @extend .flex-row
+      @extend .justify-content-center
+      @extend .align-items-stretch
+      .container
+        height: 100%
+        padding-top: 40px
+        @extend .px-4
+
+.Header
+  height: 80px
+
+.Layout
+  &__side
+    width: 20vw
+    min-width: 200px
+  &__content
+    flex-grow: 1
+
+a
+  text-decoration: none !important
+
+
+.btn
+  height: 48px
+  border-radius: 9px !important
+  background-color: $main-blue
+  font-weight: 500
+  border: none !important
+
+.logo
+  padding-top: 2rem !important
+  margin-left: 30px
+
+.logo-container
+  display: flex
+  justify-content: center
+  align-items: center
+  
+.PopupBg
+  position: fixed
+  top: 0
+  left: 0
+  width: 100vw
+  height: 100vh
+  background-color: rgba(0, 0, 0, .85)
+  cursor: pointer
+  z-index: 1000
+  .Popup
+    position: relative
+    z-index: 2000
+    cursor: default
+
+.Loader
+  position: fixed
+  top: 0
+  left: 0
+  width: 100vw
+  height: 100vh
+  background-color: $main-background
+  display: flex
+  flex-direction: column
+  justify-content: center
+  align-items: center
+  &__Logo
+    animation: scale 2s ease-in-out infinite
+    @keyframes scale
+      0%
+        transform: scale(2)
+      50%
+        transform: scale(2.4)
+      100%
+        transform: scale(2)
