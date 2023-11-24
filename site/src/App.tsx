@@ -8,9 +8,7 @@ const App = () =>
   <QueryWrapper>
     <PopupWrapper>
       <div className='App'>
-        <div className='content'>
-          <ProtectedRoutes />
-        </div>
+        <ProtectedRoutes />
       </div>
       <Toaster />
     </PopupWrapper>

@@ -2,7 +2,7 @@ import React from 'react'
 
 
 const useTitle = ( title?: string ) => {
-  const res = 'OnlyBoost: ' + (title || '')
+  const res = 'ДорСтройАвто: ' + (title || '')
 
   React.useEffect(() => {
     document.title = res

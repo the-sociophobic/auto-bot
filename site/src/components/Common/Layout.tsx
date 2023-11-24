@@ -48,10 +48,13 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         </div>
       </div>
       <div className='Layout__content px-0 d-flex flex-column'>
+    <div className='p-3 bg-gray flex-grow-1'> */}
+      <div className='content'>
+
         <Header />
-        <div className='p-3 bg-gray flex-grow-1'> */}
-          {children}
-        {/* </div>
+        {children}
+      </div>
+      {/* </div>
       </div> */}
     </>
   )

@@ -5,7 +5,9 @@ export interface UserType {
 }
 
 export interface ItemType {
-  id: IdType
+  id?: IdType
+  name: string
+  price: number
 }
 
 export type IteratableObject = {

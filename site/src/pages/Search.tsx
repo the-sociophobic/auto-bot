@@ -1,6 +1,7 @@
 import React from 'react'
 
-import { Button, Col, Form, Row } from 'react-bootstrap'
+import { Button, Form } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 
 
 const Search: React.FC = () => {
@@ -9,7 +10,7 @@ const Search: React.FC = () => {
   const onSubmit = (text: string) => { }
 
   return (
-    <div className='Search'>
+    <div className='container pt-5'>
       <Form
         onSubmit={e => {
           e.preventDefault()
@@ -22,16 +23,24 @@ const Search: React.FC = () => {
         }}
       >
         <Form.Group>
+          <Form.Label>
+            Введите номер детали
+          </Form.Label>
           <Form.Control
-            required
+            // required
             type='text'
-            placeholder='12345'
+            placeholder='7J3ZZ56T7834500003'
             onChange={e => setText(e.target.value)}
           />
         </Form.Group>
-        <Button type='submit'>
-          Поиск
-        </Button>
+        <Link to='/list'>
+          <Button
+            type='submit'
+            className='mt-2 w-100'
+          >
+            Поиск
+          </Button>
+        </Link>
       </Form>
     </div>
   )
