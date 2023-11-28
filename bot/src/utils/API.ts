@@ -12,18 +12,21 @@ const {
 const get = async <T>(
   path: string,
   params?: object | URLSearchParams
-) =>
-  (
-    await axios.get<T>(
-      `${API_HOST + path}?${new URLSearchParams(
-        {
-          userlogin: API_USER,
-          userpsw: API_PASS,
-          ...params
-        } as URLSearchParams
-      ).toString()}`,
-    )
+) => {
+  const URL = `${API_HOST + path}?${new URLSearchParams(
+    {
+      userlogin: API_USER,
+      userpsw: API_PASS,
+      ...params
+    } as URLSearchParams
+  ).toString()}`
+
+  console.log(URL)
+  
+  return (
+    await axios.get<T>(URL)
   ).data
+}
 
 const post = async <T>(props: {
   path: string
