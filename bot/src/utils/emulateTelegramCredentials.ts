@@ -24,7 +24,7 @@ const emulateTelegramInitData = (
   }
   const dataCheckString = getDataCheckString(initDataWithoutHash)
   const secret = createHmac('sha256', 'WebAppData')
-    .update(process.env.BOT_API_TOKEN)
+    .update(process.env.BOT_TOKEN)
     .digest()
   const hash = createHmac('sha256', secret).update(dataCheckString).digest('hex')
 
@@ -36,7 +36,7 @@ const emulateTelegramLoginURL = (
 ) => {
   const initDataWithoutHash = pick(user, ['id', 'first_name', 'last_name', 'username'])
   const dataCheckString = getDataCheckString(initDataWithoutHash)
-  const secret = createHash('sha256').update(process.env.BOT_API_TOKEN).digest()
+  const secret = createHash('sha256').update(process.env.BOT_TOKEN).digest()
   const hash = createHmac('sha256', secret).update(dataCheckString).digest('hex')
 
   return joinParams({ ...initDataWithoutHash, hash })

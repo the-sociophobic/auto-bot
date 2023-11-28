@@ -11,7 +11,7 @@ NiNDAO is a web3 Telegram bot that enables users to turn their group chats into 
 To run the project
 1. Use `@BotFather` bot in Telegram to create your own bot. 
 2. Copy a provided token and bot name
-3. Copy `.env.example` file and replace BOT_API_TOKEN, BOT_NAME and REACT_APP_URL
+3. Copy `.env.example` file and replace BOT_TOKEN, BOT_NAME and REACT_APP_URL
 ```bash
 $ cp .env.example .env # copy an example of environment variables to your local file
 ```
@@ -60,7 +60,7 @@ $ yarn dev # watches changes and restarts a server automatically
 ### Deploy bot
 1. Follow instructions to create a bot https://github.com/nindao/nin-js-bot via @BotFather on Telegram
 2. Go to the console in the project folder
-3. Run `helm install nindao-tg-bot ./ci/nin-js-bot-tg --set volumePermissions.enabled=true --set BOT_API_TOKEN=<your token> --set BOT_NAME=<your bot name> --set SERVER_PORT=3005 --set REACT_APP_URL=<your UI> --set API_HOST=<api host> --set imageCredentials.username=<registry token> --set imageCredentials.password=<registry token>`
+3. Run `helm install nindao-tg-bot ./ci/nin-js-bot-tg --set volumePermissions.enabled=true --set BOT_TOKEN=<your token> --set BOT_NAME=<your bot name> --set SERVER_PORT=3005 --set REACT_APP_URL=<your UI> --set API_HOST=<api host> --set imageCredentials.username=<registry token> --set imageCredentials.password=<registry token>`
 4. Go to Lens and open Workloads -> Deployments. Here must be created new deploymen named `nindao-tg-bot-deployment`  
 
 Note: if you have installed helm chart you should use `helm upgrade` command instead of `helm install`

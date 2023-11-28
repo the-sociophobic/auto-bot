@@ -3,23 +3,25 @@ import axios from 'axios'
 
 import { emulateTelegramInitData } from './emulateTelegramCredentials'
 
-const { API_HOST } = process.env
+const {
+  API_HOST,
+  API_USER,
+  API_PASS,
+} = process.env
 
-const get = async <T>(props: {
-  path: string
+const get = async <T>(
+  path: string,
   params?: object | URLSearchParams
-  user: User
-}) =>
+) =>
   (
     await axios.get<T>(
-      `${API_HOST + props.path}?${new URLSearchParams(
-        props.params as URLSearchParams
+      `${API_HOST + path}?${new URLSearchParams(
+        {
+          userlogin: API_USER,
+          userpsw: API_PASS,
+          ...params
+        } as URLSearchParams
       ).toString()}`,
-      {
-        headers: {
-          telegramData: encodeURIComponent(emulateTelegramInitData(props.user))
-        }
-      }
     )
   ).data
 
