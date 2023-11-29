@@ -1,13 +1,17 @@
 import { User } from 'telegraf/typings/core/types/typegram'
 import axios from 'axios'
+import { createHash } from 'node:crypto'
 
 import { emulateTelegramInitData } from './emulateTelegramCredentials'
+
 
 const {
   API_HOST,
   API_USER,
   API_PASS,
 } = process.env
+const hashFunc = createHash('md5')
+const API_PASS_MD5 = hashFunc.update(API_PASS).digest('hex')
 
 const get = async <T>(
   path: string,
@@ -16,7 +20,7 @@ const get = async <T>(
   const URL = `${API_HOST + path}?${new URLSearchParams(
     {
       userlogin: API_USER,
-      userpsw: API_PASS,
+      userpsw: API_PASS_MD5,
       ...params
     } as URLSearchParams
   ).toString()}`
