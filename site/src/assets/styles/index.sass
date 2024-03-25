@@ -5,7 +5,6 @@
 
 @import '~bootstrap/scss/bootstrap.scss'
 
-
 #root
   min-height: 100vh
 
@@ -22,9 +21,21 @@ body
   .App
     width: 100vw
     height: 100%
-    min-height: 570px
+    min-height: 370px
     @extend .d-flex
     @extend .flex-column
+    .Header
+      height: 80px
+      background-color: black
+      &--relative
+        position: relative
+      &--fixed
+        z-index: 1000
+        position: fixed
+        top: 0
+        left: 0
+        width: 100vw
+        border-bottom: 1px solid $main-text
     .content
       position: relative
       width: 100vw
@@ -45,28 +56,8 @@ body
 .container
   max-width: 600px
 
-.Header
-  height: 80px
-  background-color: black
-  &--relative
-    position: relative
-  &--fixed
-    position: fixed
-    top: 0
-    left: 0
-    width: 100vw
-    border-bottom: 1px solid $main-text
-
-.Layout
-  &__side
-    width: 20vw
-    min-width: 200px
-  &__content
-    flex-grow: 1
-
 a
   text-decoration: none !important
-
 
 .btn
   height: 40px
@@ -83,7 +74,7 @@ a
   display: flex
   justify-content: center
   align-items: center
-  
+
 .PopupBg
   position: fixed
   top: 0
@@ -119,10 +110,9 @@ a
       100%
         transform: scale(2)
 
-
 $avatar-size: 24px
 .Avatar
-  min-width: $avatar-size
+  width: $avatar-size
   height: $avatar-size
   border-radius: $avatar-size / 2
   box-shadow: 0 0 0 2px black
@@ -143,3 +133,37 @@ $avatar-size: 24px
   &__icon
     path
       fill: black
+
+
+.List
+  &__item
+    width: 100%
+    padding: 10px 0
+    border-top: 1px solid $main-text
+    @extend .d-flex
+    @extend .flex-column
+    &__Avatar
+      width: 50px
+      height: 50px
+    &__name
+      @include font-params(20, 20, 700)
+      margin-bottom: 10px
+    &__brand
+      @include font-params(14, 20)
+    &__available
+      height: 100%
+
+.Add
+  @extend .flex-grow-1
+  padding-right: 10px
+  &__Button
+    width: 100%
+  &__Amount
+    @extend .d-flex
+    @extend .flex-row
+    @extend .justify-content-start
+    @extend .align-items-center
+    &__number
+      width: 30px
+      text-align: center
+

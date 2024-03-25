@@ -1,6 +1,7 @@
 import { Button, ListGroup } from 'react-bootstrap'
-import { Link, useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 
+import Link from './Link'
 import Header from './Header'
 import Logo from './Logo'
 import { authorized_routes as routes } from './ProtectedRoutes/routes'
@@ -30,32 +31,10 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
   return (
     <>
-      {/* <div className='Layout__side px-2 border-end'>
-        <div className=''>
-          <Logo />
-        </div>
-        <div className='pt-5 d-flex flex-column justify-content-center'>
-          <ListGroup activeKey={pathname} className='border-none'>
-            {routesMapped.slice(0, -1)}
-            <div className='p-3'>
-              <div className='border-bottom' />
-            </div>
-            {routesMapped.slice(-1)}
-            <ListGroup.Item className='group-item mb-2'>
-              <Button className='logout-btn' onClick={handleLogout}>Log Out</Button>
-            </ListGroup.Item>
-          </ListGroup>
-        </div>
-      </div>
-      <div className='Layout__content px-0 d-flex flex-column'>
-    <div className='p-3 bg-gray flex-grow-1'> */}
+      <Header />
       <div className='content'>
-
-        <Header />
         {children}
       </div>
-      {/* </div>
-      </div> */}
     </>
   )
 }

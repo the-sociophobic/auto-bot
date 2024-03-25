@@ -1,51 +1,40 @@
 import React from 'react'
 
 import { Button, Col, Row } from 'react-bootstrap'
-import { ItemType } from '../models'
+import { ItemInCartType, ItemType } from '../models'
+import Item from './Item'
+import useStore from '../hooks/useStore'
 
 
 export type ItemsListProps = {
   items: ItemType[]
-  showButtons: boolean
-  onButtonClick?: (item: ItemType) => void
+  title: string
 }
 
 
 const ItemsList: React.FC<ItemsListProps> = ({
   items,
-  showButtons,
-  onButtonClick
+  title
 }) => {
+  const items_in_cart = useStore(state => state.items_in_cart)
+
   return (
-    <div className='container'>
-      {items.map((item, index) =>
-        <div
-          key={index}
-          className='List__item'
-        >
-          <hr />
-          <Row>
-            <Col>
-              <div>
-                <b>{item.name}</b>
-              </div>
-              <div>
-                {item.price}₽
-              </div>
-            </Col>
-            <Col className='d-flex flex-row justify-content-end'>
-              {showButtons &&
-                <Button
-                  onClick={() => onButtonClick?.(item)}
-                >
-                  Добавить
-                </Button>
-              }
-            </Col>
-          </Row>
-        </div>
-      )}
-    </div>
+    <>
+      <h2 className='h2 mt-4 mb-2'>
+        {title}
+      </h2>
+      {items.map((item, index) => {
+        const item_in_cart = items_in_cart
+          .find(item_in_cart => item_in_cart.item_id === item.id)
+
+        return (
+          <Item
+            key={item.id}
+            item_in_cart={item_in_cart || { item_id: item.id, amount: 0 }}
+          />
+        )
+      })}
+    </>
   )
 }
 

@@ -1,13 +1,23 @@
 import React from 'react'
 
 import { Button, Form } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
+
+import Link from '../components/Common/Link'
+import useStore from '../hooks/useStore'
+import { items as items_fake } from '../utils/data'
+import ItemsList from '../components/ItemsList'
 
 
 const Search: React.FC = () => {
   const [text, setText] = React.useState('')
   const [validated, setValidated] = React.useState(false)
-  const onSubmit = (text: string) => { }
+  // const history = useHistory()
+  const items = useStore(state => state.items)
+  const setItems = useStore(state => state.setItems)
+  const onSubmit = (text: string) => {
+    setItems(items_fake)
+  }
 
   return (
     <div className='container pt-5'>
@@ -33,15 +43,23 @@ const Search: React.FC = () => {
             onChange={e => setText(e.target.value)}
           />
         </Form.Group>
-        <Link to='/list'>
+        {/* <Link to='/list'> */}
           <Button
+            disabled={text.length === 0}
             type='submit'
             className='mt-2 w-100'
           >
             Поиск
           </Button>
-        </Link>
+        {/* </Link> */}
       </Form>
+
+      {items.length > 0 &&
+        <ItemsList
+          title='Список предложений'
+          items={items}
+        />
+      }
     </div>
   )
 }

@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { getWebAppAuthObject } from '../auth'
+import printUsername from '../utils/printUsername'
 
 
 const Done: React.FC = () => {
@@ -8,7 +9,7 @@ const Done: React.FC = () => {
 
   return (
     <div className='container'>
-      {user && user.first_name} {user && user.last_name}, Ваша заявка оформлена! Мы с вами свяжемся
+      {user && printUsername(user)}, Ваша заявка оформлена! Мы с вами свяжемся
     </div>
   )
 }

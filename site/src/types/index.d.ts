@@ -7,12 +7,5 @@ declare global {
         initData: String
       }
     }
-    ethereum?: any & {
-      request: (params: any) => Promise<any>
-      isMetaMask: boolean
-      on: any
-      removeListener: any
-    }
-    opera?: any
   }
 }
