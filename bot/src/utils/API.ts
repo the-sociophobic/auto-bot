@@ -19,7 +19,8 @@ const get = async <T>(
   const URL = `${API_HOST + path}?${new URLSearchParams(
     {
       userlogin: API_USER,
-      userpsw: MD5(API_PASS).toString(),
+      // userpsw: MD5(API_PASS).toString(),
+      userpsw: API_PASS,
       ...params
     } as URLSearchParams
   ).toString()}`
