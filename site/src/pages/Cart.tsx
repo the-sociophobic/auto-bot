@@ -4,21 +4,20 @@ import { Button, Form, InputGroup } from 'react-bootstrap'
 import ItemsList from '../components/ItemsList'
 import useStore from '../hooks/useStore'
 import Link from '../components/Common/Link'
-import { ItemType } from '../models'
+import { FindPartsType, ItemType } from '../models'
 
 
 const Cart: React.FC = () => {
-  const items = useStore(state => state.items)
-  const items_added: ItemType[] = useStore(state => state.items_in_cart)
-    .map(item_in_cart => items.find(item => item.id === item_in_cart.item_id))
-    .filter(item_added => item_added !== undefined) as ItemType[]
-
+  const items_in_cart = useStore(state => state.items_in_cart)
+  const items = items_in_cart.map(items_in_cart => items_in_cart.item)
+  console.log(items_in_cart)
+  
   return (
     <div className='container'>
       {/* <h2 className='h2 mb-3'>
         Корзина
       </h2> */}
-      {items_added.length === 0 ?
+      {items_in_cart.length === 0 ?
         <div>
           Вы ничего не добавили
         </div>
@@ -26,7 +25,7 @@ const Cart: React.FC = () => {
         <>
           <ItemsList
             title='Корзина'
-            items={items_added}
+            items={items}
           />
           <Form.Group className='mt-3 mb-4'>
             <Form.Label>

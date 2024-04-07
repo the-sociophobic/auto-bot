@@ -25,11 +25,11 @@ const authorized_routes: RouteType[] = [
     title: 'Заявка отправлена',
     Comp: <Done />,
   },
-  {
-    to: '/list',
-    title: 'Список предложений',
-    Comp: <List />,
-  },
+  // {
+  //   to: '/list',
+  //   title: 'Список предложений',
+  //   Comp: <List />,
+  // },
   {
     to: '/',
     title: 'Поиск',

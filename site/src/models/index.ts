@@ -15,11 +15,6 @@ export interface ItemType {
   timing: string
 }
 
-export type ItemInCartType = {
-  item_id: IdType
-  amount: number
-}
-
 export type IteratableObject = {
   [key: string]: any
 }
@@ -58,4 +53,36 @@ export type ItemFromServerType = {
   deliveryProbability: number
   priceIn: number
   priceRate: number
+}
+
+
+
+
+export type SearchBrandsType = {
+  availability: number,
+  brand: string,
+  description: string,
+  number: string,
+  numberFix: string
+}
+
+export type SearchBrandsKeyType = SearchBrandsType & {
+  key: string
+}
+
+export type ArticlesInfoType = Omit<SearchBrandsType, 'availability' | 'numberFix'> & {
+  images: ABCB_ImagType[],
+  images_count: number,
+}
+
+export type FindPartsType = SearchBrandsKeyType & ArticlesInfoType
+
+export type ItemInCartType = {
+  item: FindPartsType
+  amount: number
+}
+
+export type ABCB_ImagType = {
+  name: string
+  order: number
 }

@@ -27,3 +27,23 @@ export type ItemType = {
   priceIn: number
   priceRate: number
 }
+
+
+export type SearchBrandsType = {
+  availability: number,
+  brand: string,
+  description: string,
+  number: string,
+  numberFix: string
+}
+
+export type SearchBrandsKeyType = SearchBrandsType & {
+  key: string
+}
+
+export type ArticlesInfoType = Omit<SearchBrandsType, 'availability' | 'numberFix'> & {
+  images: any[],
+  images_count: number,
+}
+
+export type FindPartsType = SearchBrandsKeyType & ArticlesInfoType

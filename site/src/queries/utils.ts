@@ -2,8 +2,8 @@ import axios from 'axios'
 import { getAuthHeader } from '../hooks/auth'
 
 
-const REACT_APP_SERVER_URL = 'https://shark-app-p76lu.ondigitalocean.app/api'
-//const REACT_APP_SERVER_URL = 'http://localhost:8000/api'
+// const REACT_APP_SERVER_URL = 'https://shark-app-p76lu.ondigitalocean.app/api'
+const REACT_APP_SERVER_URL = 'http://localhost:5005'
 
 
 export const generateURL = (path: string, params?: object): string =>

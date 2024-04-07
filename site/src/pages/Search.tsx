@@ -7,58 +7,55 @@ import Link from '../components/Common/Link'
 import useStore from '../hooks/useStore'
 import { items as items_fake } from '../utils/data'
 import ItemsList from '../components/ItemsList'
+import Input from '../components/Common/Input'
+import { FindPartsType } from '../models'
+import { useQuery } from 'react-query'
+import { getPartsByNumber } from '../queries'
 
 
 const Search: React.FC = () => {
-  const [text, setText] = React.useState('')
+  const [searchText, setSearchText] = React.useState('')
+  const [submittedText, setSubmittedText] = React.useState('')
+  const [page, setPage] = React.useState(1)
   const [validated, setValidated] = React.useState(false)
   // const history = useHistory()
-  const items = useStore(state => state.items)
-  const setItems = useStore(state => state.setItems)
-  const onSubmit = (text: string) => {
-    setItems(items_fake)
-  }
+
+  const {
+    data: items,
+    isLoading: itemsLoading
+  } = useQuery<FindPartsType[]>(
+    ['parts-by-number', submittedText, page],
+    () => getPartsByNumber(submittedText, page)
+  )
 
   return (
     <div className='container pt-5'>
-      <Form
-        onSubmit={e => {
-          e.preventDefault()
-          if (e.currentTarget.checkValidity() === false)
-            e.preventDefault()
-          else
-            onSubmit(text)
-          setValidated(true)
-
-        }}
+      <Input
+        label='Введите номер детали'
+        value={searchText}
+        onChange={setSearchText}
+        placeholder='7J3ZZ56T7834500003'
+      />
+      <Button
+        disabled={searchText.length === 0}
+        onClick={() => setSubmittedText(searchText)}
+        type='submit'
+        className='mt-2 w-100 Button Button--green'
       >
-        <Form.Group>
-          <Form.Label>
-            Введите номер детали
-          </Form.Label>
-          <Form.Control
-            // required
-            type='text'
-            placeholder='7J3ZZ56T7834500003'
-            onChange={e => setText(e.target.value)}
-          />
-        </Form.Group>
-        {/* <Link to='/list'> */}
-          <Button
-            disabled={text.length === 0}
-            type='submit'
-            className='mt-2 w-100'
-          >
-            Поиск
-          </Button>
-        {/* </Link> */}
-      </Form>
+        {itemsLoading ? 'Ищем варианты...' : 'Найти'}
+      </Button>
 
-      {items.length > 0 &&
+      {(items && items.length > 0) &&
         <ItemsList
-          title='Список предложений'
+          title={`Найдено ${items.length}`}
           items={items}
         />
+      }
+
+      {submittedText && (items && items.length === 0) &&
+        <p className='mt-3'>
+          По вашему запросу ничего не найдено
+        </p>
       }
     </div>
   )

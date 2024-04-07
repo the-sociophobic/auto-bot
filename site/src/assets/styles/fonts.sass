@@ -1,12 +1,26 @@
 @import '~bootstrap/scss/bootstrap.scss'
 
-// @font-face
-//   font-family: 'Poppins'
-//   src: url('../fonts/Poppins/Poppins-Regular.ttf') format('truetype')
+@font-face
+  font-family: 'IBMPlexMono'
+  src: url('../font/IBMPlexMono.otf') format('opentype')
 
 *
-  // font-family: 'Poppins'
-  
+  font-family: 'IBMPlexMono'
+  font-weight: normal
+  color: $white
+  font-size: 16px
+  margin: 0
+  padding: 0
+  box-sizing: border-box
+  -webkit-font-smoothing: antialiased
+
+.font-inherit
+  font-family: inherit
+  font-weight: inherit
+  font-size: inherit
+  color: inherit
+  line-height: inherit
+
 .underline
   width: 100%
   position: relative

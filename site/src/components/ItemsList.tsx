@@ -1,13 +1,14 @@
 import React from 'react'
 
 import { Button, Col, Row } from 'react-bootstrap'
-import { ItemInCartType, ItemType } from '../models'
+import { FindPartsType, ItemInCartType, ItemType } from '../models'
 import Item from './Item'
 import useStore from '../hooks/useStore'
 
 
 export type ItemsListProps = {
-  items: ItemType[]
+  // items: ItemType[]
+  items: FindPartsType[]
   title: string
 }
 
@@ -16,21 +17,20 @@ const ItemsList: React.FC<ItemsListProps> = ({
   items,
   title
 }) => {
-  const items_in_cart = useStore(state => state.items_in_cart)
+  const { findItemInCart } = useStore(state => state)
 
   return (
     <>
-      <h2 className='h2 mt-4 mb-2'>
+      <h4 className='h4 mt-4 mb-3'>
         {title}
-      </h2>
+      </h4>
       {items.map((item, index) => {
-        const item_in_cart = items_in_cart
-          .find(item_in_cart => item_in_cart.item_id === item.id)
+        const { item_in_cart } = findItemInCart(item)
 
         return (
           <Item
-            key={item.id}
-            item_in_cart={item_in_cart || { item_id: item.id, amount: 0 }}
+            key={item.key}
+            item_in_cart={item_in_cart || { item, amount: 0 }}
           />
         )
       })}

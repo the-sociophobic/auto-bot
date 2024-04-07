@@ -1,6 +1,9 @@
 import React from 'react'
-import { Button, Form, InputGroup } from 'react-bootstrap'
+
 import clamp from '../utils/clamp'
+import EnterThreshold from './Common/EnterThreshold'
+import { ReactComponent as CartIcon } from '../assets/images/cart.svg'
+import Button from './Common/Button'
 
 
 export type AddProps = {
@@ -20,41 +23,18 @@ const Add: React.FC<AddProps> = ({
       {
         amount === 0 ?
           <Button
-            className='Add__Button'
+            green
             onClick={() => setAmount(1)}
           >
-            В корзину
+            <CartIcon className="cart-icon" />
           </Button>
           :
-          <div className='Add__Amount'>
-            {/* <InputGroup className="mb-3"> */}
-              <Button
-                variant="outline-secondary"
-                id="button-addon1"
-                disabled={amount <= 0}
-                className='Add__Amount__Button'
-                onClick={() => setAmount(amount - 1)}
-              >
-                -
-              </Button>
-              {/* <Form.Control
-                type='number'
-                onChange={e => setAmount(clamp(parseInt(e.target.value), 0, max))}
-              /> */}
-              <div className='Add__Amount__number'>
-                {amount}
-              </div>
-              <Button
-                variant="outline-secondary"
-                id="button-addon1"
-                disabled={amount >= max}
-                className='Add__Amount__Button'
-                onClick={() => setAmount(amount + 1)}
-              >
-                +
-              </Button>
-            {/* </InputGroup> */}
-          </div>
+          <EnterThreshold
+            value={amount}
+            onChange={setAmount}
+            min={0}
+            max={max}
+          />
       }
     </div>
   )
