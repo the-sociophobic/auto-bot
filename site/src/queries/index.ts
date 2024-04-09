@@ -9,6 +9,7 @@ export const getPartsByNumber = async (number: string, page: number = 1) => {
   if (number.length === 0)
     return []
   
+  console.log(number)
   return await get(`/find-parts`, {
     number, page
   })

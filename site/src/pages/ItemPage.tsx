@@ -5,7 +5,7 @@ import ItemsList from '../components/ItemsList'
 import useStore from '../hooks/useStore'
 import { FindPartType, FindPartsType } from '../models'
 import { useQuery } from 'react-query'
-import { getPartInfo, getPartsByNumber } from '../queries'
+import { getPartInfo } from '../queries'
 
 
 const ItemPage: React.FC = () => {
