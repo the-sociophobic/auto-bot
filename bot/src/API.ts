@@ -1,14 +1,18 @@
 import express, { Request, Responce } from 'express'
+import axios from 'axios'
 import cors from 'cors'
 
 import { get } from './utils/API'
-import { ArticlesInfoType, SearchBrandsKeyType, SearchBrandsType } from './models/item'
+import { ArticlesInfoType, ItemInCartType, SearchBrandsKeyType, SearchBrandsType } from './models/item'
+import fixStringForMarkdownV2 from './utils/fixStringForMarkdownV2'
+import printUsername from './utils/printUsername'
 
 
 const app = express()
 app.use(cors())
+app.use(express.json())
 
-const { API_PORT } = process.env
+const { API_PORT, BOT_TOKEN } = process.env
 const PARTS_ON_PAGE = 5
 
 
@@ -59,6 +63,52 @@ app.get('/find-parts-brand', async (request, response) => {
     response.send('Hello world!')
   }
 })
+
+type TgNotificationPayload = {
+  chat_id: number;
+  text: string;
+  parse_mode: string;
+  reply_markup?: any;
+}
+
+app.post('/order', async (request, response) => {
+  console.log(request.body)
+  const { user, items_in_cart, promocode } = request.body
+  const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`
+  const text = `
+Пользователь:
+${printUsername(user)}
+
+Заказ:
+${
+  (items_in_cart as ItemInCartType[])
+    .map(item => ' - \"' + item.item.key + '\" - ' + item.amount + ' шт')
+}
+
+${promocode ? ('Промокод: ' + promocode) : ''}
+`
+  const groupWithOrdersId = -4177786184
+
+  try {
+    const messageForUser: TgNotificationPayload = {
+      chat_id: user.id,
+      text: fixStringForMarkdownV2(`${text}`),
+      parse_mode: 'MarkdownV2',
+    }
+    const messageForOrdersChat: TgNotificationPayload = {
+      chat_id: groupWithOrdersId,
+      text: fixStringForMarkdownV2(`${text}`),
+      parse_mode: 'MarkdownV2',
+    }
+
+    if (user)
+      await axios.post(url, messageForUser)
+    await axios.post(url, messageForOrdersChat)
+  } catch (err) {
+    console.log(err.message)
+  }
+})
+
 
 const initAPI = () => {
   app.listen(API_PORT, () => console.log(`Running on port ${API_PORT}`))

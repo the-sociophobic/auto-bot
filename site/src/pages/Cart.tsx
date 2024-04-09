@@ -1,17 +1,37 @@
-import React from 'react'
-import { Button, Form, InputGroup } from 'react-bootstrap'
+import React, { useState } from 'react'
 
 import ItemsList from '../components/ItemsList'
 import useStore from '../hooks/useStore'
 import Link from '../components/Common/Link'
 import { FindPartsType, ItemType } from '../models'
+import { post } from '../queries/utils'
+import { getWebAppAuthObject } from '../auth'
+import Input from '../components/Common/Input'
+import Button from '../components/Common/Button'
 
 
 const Cart: React.FC = () => {
   const items_in_cart = useStore(state => state.items_in_cart)
-  const items = items_in_cart.map(items_in_cart => items_in_cart.item)
+  const [promocode, setPromocode] = useState('')
   console.log(items_in_cart)
-  
+
+  const user = getWebAppAuthObject()
+
+  const onSubmit = async () => {
+    console.log(items_in_cart)
+    try {
+      await post('/order', {
+        user,
+        items_in_cart,
+        promocode
+      })
+    } catch (err) {
+      console.log(err)
+    } finally {
+      window?.Telegram?.WebApp?.close?.()
+    }
+  }
+
   return (
     <div className='container'>
       {/* <h2 className='h2 mb-3'>
@@ -25,21 +45,23 @@ const Cart: React.FC = () => {
         <>
           <ItemsList
             title='Корзина'
-            items={items}
+            items={items_in_cart.map(item_in_cart => item_in_cart.item)}
           />
-          <Form.Group className='mt-3 mb-4'>
-            <Form.Label>
-              Есть промокод?
-            </Form.Label>
-            <Form.Control placeholder='PROMOKODE'/>
-          </Form.Group>          
-          <Link to='/done'>
-            <Button
-              className='mt-2 w-100'
-            >
-              Оформить
-            </Button>
-          </Link>
+          <Input
+            className='mt-3 mb-4'
+            value={promocode}
+            onChange={setPromocode}
+            label='Есть промокод?'
+          />
+          {/* <Link to='/done'> */}
+          <Button
+            green
+            // className='mt-2 w-100'
+            onClick={onSubmit}
+          >
+            Оформить
+          </Button>
+          {/* </Link> */}
         </>
       }
     </div>

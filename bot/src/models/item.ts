@@ -42,8 +42,18 @@ export type SearchBrandsKeyType = SearchBrandsType & {
 }
 
 export type ArticlesInfoType = Omit<SearchBrandsType, 'availability' | 'numberFix'> & {
-  images: any[],
+  images: ABCB_ImagType[],
   images_count: number,
 }
 
 export type FindPartsType = SearchBrandsKeyType & ArticlesInfoType
+
+export type ItemInCartType = {
+  item: FindPartsType
+  amount: number
+}
+
+export type ABCB_ImagType = {
+  name: string
+  order: number
+}
