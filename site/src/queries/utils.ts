@@ -3,8 +3,8 @@ import { getAuthHeader } from '../hooks/auth'
 
 
 // const REACT_APP_SERVER_URL = 'https://shark-app-p76lu.ondigitalocean.app/api'
-const REACT_APP_SERVER_URL = 'http://localhost:5005'
-// const REACT_APP_SERVER_URL = 'https://hyperdao.xyz'
+// const REACT_APP_SERVER_URL = 'http://localhost:5005'
+const REACT_APP_SERVER_URL = 'https://hyperdao.xyz'
 
 
 export const generateURL = (path: string, params?: object): string =>
