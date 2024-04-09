@@ -5,17 +5,28 @@ import { ItemInCartType, ItemType } from '../models'
 import Add from './AddButton'
 import useStore from '../hooks/useStore'
 import ItemImg from './ItemImg'
+import LinkWrapper from './Common/Link'
 
 
 export type ItemProps = {
   item_in_cart: ItemInCartType
+  isCart: boolean
 }
 
 
-const Item: React.FC<ItemProps> = ({ item_in_cart: { item, amount } }) => {
+const Item: React.FC<ItemProps> = ({
+  item_in_cart: { item, amount },
+  isCart
+}) => {
   const setItemInCart = useStore(state => state.setItemInCart)
+  const linkWrapper = (children: React.ReactNode) => isCart ?
+    <>{children}</>
+    :
+    <LinkWrapper to={`/item?number=${item.number}&brand=${item.brand}`}>
+      {children}
+    </LinkWrapper>
 
-  return !item ? <></> : (
+  return !item ? <></> : linkWrapper(
     <div className='List__item'>
       <div className='d-flex flex-row justify-content-start pb-3'>
         <ItemImg
@@ -30,21 +41,23 @@ const Item: React.FC<ItemProps> = ({ item_in_cart: { item, amount } }) => {
             {item.brand}
           </div>
         </div>
-        <div className='d-flex flex-column justify-content-between align-items-center'>
-          <Add
-            amount={amount}
-            setAmount={(_amount: number) => setItemInCart(item, _amount)}
-            max={item.availability}
-          />
-          <div className='d-flex flex-column'>
-            <div>
-              Доступно {item.availability}
+        {isCart &&
+          <div className='d-flex flex-column justify-content-between align-items-center'>
+            <Add
+              amount={amount}
+              setAmount={(_amount: number) => setItemInCart(item, _amount)}
+              max={item.availability}
+            />
+            <div className='d-flex flex-column'>
+              <div>
+                Доступно {item.availability}
+              </div>
+              {/* <div>
+                Поставка {item.availability}
+              </div> */}
             </div>
-            {/* <div>
-              Поставка {item.availability}
-            </div> */}
           </div>
-        </div>
+        }
       </div>
 
 

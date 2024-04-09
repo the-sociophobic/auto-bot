@@ -13,7 +13,7 @@ app.use(cors())
 app.use(express.json())
 
 const { API_PORT, BOT_TOKEN } = process.env
-const PARTS_ON_PAGE = 5
+const PARTS_ON_PAGE = 55
 
 
 app.get('/find-parts', async (request: Request, response: Responce) => {
@@ -52,15 +52,17 @@ app.get('/find-parts', async (request: Request, response: Responce) => {
     }
 })
 
-app.get('/find-parts-brand', async (request, response) => {
-  console.log(request)
+app.get('/part-info', async (request, response) => {
+  const { number, brand } = request.query
+  console.log(number, brand)
+
   try {
-    const res = await get('/articles/info', { number: '01089', brand: 'Febi', format: 'i' })
+    const res = await get('/search/articles/', { number, brand, format: 'i' })
     console.log(res)
+    response.send(res)
   } catch (err) {
     console.log(err.message)
-  } finally {
-    response.send('Hello world!')
+    response.send([])
   }
 })
 

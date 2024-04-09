@@ -44,6 +44,7 @@ const Cart: React.FC = () => {
         :
         <>
           <ItemsList
+            isCart={true}
             title='Корзина'
             items={items_in_cart.map(item_in_cart => item_in_cart.item)}
           />

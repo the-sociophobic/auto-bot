@@ -64,6 +64,7 @@ export type SearchBrandsType = {
   description: string,
   number: string,
   numberFix: string
+  price?: number
 }
 
 export type SearchBrandsKeyType = SearchBrandsType & {
@@ -85,4 +86,8 @@ export type ItemInCartType = {
 export type ABCB_ImagType = {
   name: string
   order: number
+}
+
+export type FindPartType = FindPartsType & {
+  price: number
 }

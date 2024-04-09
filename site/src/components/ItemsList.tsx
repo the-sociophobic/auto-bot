@@ -10,12 +10,14 @@ export type ItemsListProps = {
   // items: ItemType[]
   items: FindPartsType[]
   title: string
+  isCart: boolean
 }
 
 
 const ItemsList: React.FC<ItemsListProps> = ({
   items,
-  title
+  title,
+  isCart
 }) => {
   const { findItemInCart } = useStore(state => state)
 
@@ -29,6 +31,7 @@ const ItemsList: React.FC<ItemsListProps> = ({
 
         return (
           <Item
+            isCart={isCart}
             key={item.key}
             item_in_cart={item_in_cart || { item, amount: 0 }}
           />

@@ -47,6 +47,7 @@ const Search: React.FC = () => {
 
       {(items && items.length > 0) &&
         <ItemsList
+          isCart={false}
           title={`Найдено ${items.length}`}
           items={items}
         />

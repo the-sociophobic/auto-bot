@@ -14,3 +14,12 @@ export const getPartsByNumber = async (number: string, page: number = 1) => {
   })
 }
 
+export const getPartInfo = async (number: string, brand: string) => {
+  if (number.length === 0 || brand.length === 0)
+    return []
+  console.log('aaa')
+  
+  return await get(`/part-info`, {
+    number, brand
+  })
+}

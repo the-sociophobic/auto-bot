@@ -1,6 +1,6 @@
 import Cart from '../../../pages/Cart'
 import Done from '../../../pages/Done'
-import List from '../../../pages/List'
+import ItemPage from '../../../pages/ItemPage'
 import Search from '../../../pages/Search'
 
 
@@ -25,11 +25,11 @@ const authorized_routes: RouteType[] = [
     title: 'Заявка отправлена',
     Comp: <Done />,
   },
-  // {
-  //   to: '/list',
-  //   title: 'Список предложений',
-  //   Comp: <List />,
-  // },
+  {
+    to: '/item',
+    title: 'Деталь',
+    Comp: <ItemPage />,
+  },
   {
     to: '/',
     title: 'Поиск',
