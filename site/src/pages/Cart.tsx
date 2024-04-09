@@ -2,8 +2,6 @@ import React, { useState } from 'react'
 
 import ItemsList from '../components/ItemsList'
 import useStore from '../hooks/useStore'
-import Link from '../components/Common/Link'
-import { FindPartsType, ItemType } from '../models'
 import { post } from '../queries/utils'
 import { getWebAppAuthObject } from '../auth'
 import Input from '../components/Common/Input'
@@ -22,7 +20,15 @@ const Cart: React.FC = () => {
     try {
       await post('/order', {
         user,
-        items_in_cart,
+        items_in_cart: items_in_cart.map(item_in_cart => ({
+          amount: item_in_cart.amount,
+          item: {
+            key: item_in_cart.item.key,
+            price: item_in_cart.item.price,
+            number: item_in_cart.item.number,
+            brand: item_in_cart.item.brand,
+          }
+        })),
         promocode
       })
     } catch (err) {

@@ -6,6 +6,7 @@ import { get } from './utils/API'
 import { ArticlesInfoType, ItemInCartType, SearchBrandsKeyType, SearchBrandsType } from './models/item'
 import fixStringForMarkdownV2 from './utils/fixStringForMarkdownV2'
 import printUsername from './utils/printUsername'
+import isProd from './utils/isProd'
 
 
 const app = express()
@@ -14,45 +15,54 @@ app.use(express.json())
 
 const { API_PORT, BOT_TOKEN } = process.env
 const PARTS_ON_PAGE = 55
+const groupWithOrdersId = -4177786184
+const groupWithOrdersIdTest = -4133485421
 
 
 app.get('/find-parts', async (request: Request, response: Responce) => {
   const { number, page } = request.query
-  // console.log('number, page')
-  if (number)
-    try {
-      const all_parts: { [key: string]: SearchBrandsType } = await get('/search/brands/', { number })
-      // console.log(all_parts)
 
-      const all_parts_array: SearchBrandsKeyType[] = Object.keys(all_parts)
-        .map(key => ({
-          ...all_parts[key],
-          key
-        }))
+  if (!number)
+    response.send([])
 
-      const parts_on_page = all_parts_array.slice(
-        !page ? 0 : (page - 1) * PARTS_ON_PAGE,
-        !page ? PARTS_ON_PAGE : page * PARTS_ON_PAGE,
-      )
-      
-      // const parts_with_imgs = await Promise.all(
-      //   parts_on_page.map(
-      //     async part => ({
-      //       ...part,
-      //       ...(await get<ArticlesInfoType>('/articles/info', {
-      //         number,
-      //         brand: part.brand,
-      //         format: 'i'
-      //       }))
-      //     })
-      //   ))
-      const parts_with_imgs = parts_on_page
+  let items = []
 
-      // console.log('parts_with_imgs')
-      response.send(parts_with_imgs)
-    } catch (err) {
-      response.send([])
-    }
+  try {
+    const all_parts: { [key: string]: SearchBrandsType } = await get('/search/brands/', { number })
+    // console.log(all_parts)
+
+    const all_parts_array: SearchBrandsKeyType[] = Object.keys(all_parts)
+      .map(key => ({
+        ...all_parts[key],
+        key
+      }))
+
+    const parts_on_page = all_parts_array.slice(
+      !page ? 0 : (page - 1) * PARTS_ON_PAGE,
+      !page ? PARTS_ON_PAGE : page * PARTS_ON_PAGE,
+    )
+
+    items = parts_on_page
+
+    const parts_with_imgs = await Promise.all(
+      parts_on_page.map(
+        async part => ({
+          ...part,
+          ...(await get<ArticlesInfoType>('/articles/info', {
+            number,
+            brand: part.brand,
+            format: 'i'
+          }))
+        })
+      ))
+
+    items = parts_with_imgs
+
+  } catch (err) {
+    console.log(err)
+  } finally {
+    response.send(items)
+  }
 })
 
 app.get('/part-info', async (request, response) => {
@@ -85,15 +95,12 @@ app.post('/order', async (request, response) => {
 ${printUsername(user)}
 
 Заказ:
-${
-  (items_in_cart as ItemInCartType[])
-    .map(item => ' - \"' + item.item.key + '\" - ' + item.amount + ' шт')
-}
+${(items_in_cart as ItemInCartType[])
+      .map(item => ' - \"' + item.item.key + '\" - ' + item.amount + ' шт')
+    }
 
 ${promocode ? ('Промокод: ' + promocode) : ''}
 `
-  const groupWithOrdersId = -4177786184
-
   try {
     const messageForUser: TgNotificationPayload = {
       chat_id: user.id,
@@ -101,7 +108,7 @@ ${promocode ? ('Промокод: ' + promocode) : ''}
       parse_mode: 'MarkdownV2',
     }
     const messageForOrdersChat: TgNotificationPayload = {
-      chat_id: groupWithOrdersId,
+      chat_id: isProd() ? groupWithOrdersId : groupWithOrdersIdTest,
       text: fixStringForMarkdownV2(`${text}`),
       parse_mode: 'MarkdownV2',
     }
