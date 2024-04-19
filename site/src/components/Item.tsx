@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Col, Row } from 'react-bootstrap'
 
-import { ItemInCartType, ItemType } from '../models'
+import { FindPartsType } from '../models'
 import Add from './AddButton'
 import useStore from '../hooks/useStore'
 import ItemImg from './ItemImg'
@@ -9,22 +9,30 @@ import LinkWrapper from './Common/Link'
 
 
 export type ItemProps = {
-  item_in_cart: ItemInCartType
-  isCart: boolean
+  item: FindPartsType
 }
 
 
 const Item: React.FC<ItemProps> = ({
-  item_in_cart: { item, amount },
-  isCart
+  item,
 }) => {
-  const setItemInCart = useStore(state => state.setItemInCart)
-  const linkWrapper = (children: React.ReactNode) => isCart ?
-    <>{children}</>
-    :
-    <LinkWrapper to={`/item?number=${item.number}&brand=${item.brand}`}>
-      {children}
-    </LinkWrapper>
+  const { storeImage } = useStore(state => state)
+  const linkWrapper = (children: React.ReactNode) => {
+    const img = item.images?.[0]?.name
+
+    return (
+      <LinkWrapper
+        to={`/item?number=${item.number}&brand=${item.brand}&img=${img}`}
+        onClick={() => {
+          console.log(img)
+          if (img)
+            storeImage(img, item.key)
+        }}
+      >
+        {children}
+      </LinkWrapper>
+    )
+  }
 
   return !item ? <></> : linkWrapper(
     <div className='List__item'>
@@ -41,23 +49,6 @@ const Item: React.FC<ItemProps> = ({
             {item.brand}
           </div>
         </div>
-        {isCart &&
-          <div className='d-flex flex-column justify-content-between align-items-center'>
-            <Add
-              amount={amount}
-              setAmount={(_amount: number) => setItemInCart(item, _amount)}
-              max={item.availability}
-            />
-            <div className='d-flex flex-column'>
-              <div>
-                Доступно {item.availability}
-              </div>
-              {/* <div>
-                Поставка {item.availability}
-              </div> */}
-            </div>
-          </div>
-        }
       </div>
 
 

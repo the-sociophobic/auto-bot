@@ -1,9 +1,9 @@
 import React from 'react'
 import { useParams, useLocation } from 'react-router-dom'
 
-import ItemsList from '../components/ItemsList'
+import BuyPartsList from '../components/BuyPartsList'
 import useStore from '../hooks/useStore'
-import { FindPartType, FindPartsType } from '../models'
+import { PartInfoType } from '../models'
 import { useQuery } from 'react-query'
 import { getPartInfo } from '../queries'
 
@@ -14,21 +14,24 @@ const ItemPage: React.FC = () => {
   const number = searchParams.get('number') || ''
   const brand = searchParams.get('brand') || ''
 
+  const { getImg } = useStore(state => state)
+  const img = searchParams.get('img') || getImg(brand + number) || undefined
+
   const {
-    data: part,
+    data: offers,
     isLoading: partLoading
-  } = useQuery<FindPartType[]>(
+  } = useQuery<PartInfoType[]>(
     ['part-info', number, brand],
     () => getPartInfo(number, brand)
   )
-  console.log(part)
+  console.log(offers)
 
-  return !part ? <></> : (
+  return !offers ? <></> : (
     <div className='container pt-5'>
-      <ItemsList
-        isCart={true}
+      <BuyPartsList
         title='Предложения'
-        items={part}
+        items={offers}
+        img={img}
       />
     </div>
   )

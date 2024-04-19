@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import ItemsList from '../components/ItemsList'
+import BuyPartsList from '../components/BuyPartsList'
 import useStore from '../hooks/useStore'
 import { post } from '../queries/utils'
 import { getWebAppAuthObject } from '../auth'
@@ -10,6 +10,8 @@ import Button from '../components/Common/Button'
 
 const Cart: React.FC = () => {
   const items_in_cart = useStore(state => state.items_in_cart)
+  const { imgs } = useStore(state => state)
+  console.log(imgs)
   const [promocode, setPromocode] = useState('')
   console.log(items_in_cart)
 
@@ -38,6 +40,10 @@ const Cart: React.FC = () => {
     }
   }
 
+  const checkPrice = items_in_cart
+    .map(({item, amount}) => item.price * amount)
+    .reduce((a, b) => a + b)
+
   return (
     <div className='container'>
       {/* <h2 className='h2 mb-3'>
@@ -49,8 +55,7 @@ const Cart: React.FC = () => {
         </div>
         :
         <>
-          <ItemsList
-            isCart={true}
+          <BuyPartsList
             title='Корзина'
             items={items_in_cart.map(item_in_cart => item_in_cart.item)}
           />
@@ -61,6 +66,9 @@ const Cart: React.FC = () => {
             label='Есть промокод?'
           />
           {/* <Link to='/done'> */}
+          <h4 className='h4 mb-3'>
+            Итого: {checkPrice}₽
+          </h4>
           <Button
             green
             // className='mt-2 w-100'

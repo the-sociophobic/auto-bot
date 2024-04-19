@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom'
 import Link from '../components/Common/Link'
 import useStore from '../hooks/useStore'
 import { items as items_fake } from '../utils/data'
-import ItemsList from '../components/ItemsList'
+import FindPartsList from '../components/FindPartsList'
 import Input from '../components/Common/Input'
 import { FindPartsType } from '../models'
 import { useQuery } from 'react-query'
@@ -47,8 +47,7 @@ const Search: React.FC = () => {
       </Button>
 
       {(items && items.length > 0) &&
-        <ItemsList
-          isCart={false}
+        <FindPartsList
           title={`Найдено ${items.length}`}
           items={items}
         />

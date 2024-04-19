@@ -3,7 +3,7 @@ import axios from 'axios'
 import cors from 'cors'
 
 import { get } from './utils/API'
-import { ArticlesInfoType, ItemInCartType, SearchBrandsKeyType, SearchBrandsType } from './models/item'
+import { ArticlesInfoType, ItemInCartType, PartInfoType, SearchBrandsKeyType, SearchBrandsType } from './models/item'
 import fixStringForMarkdownV2 from './utils/fixStringForMarkdownV2'
 import printUsername from './utils/printUsername'
 import isProd from './utils/isProd'
@@ -14,7 +14,7 @@ app.use(cors())
 app.use(express.json())
 
 const { API_PORT, BOT_TOKEN } = process.env
-const PARTS_ON_PAGE = 55
+const PARTS_ON_PAGE = 5
 const groupWithOrdersId = -4177786184
 const groupWithOrdersIdTest = -4133485421
 
@@ -70,7 +70,12 @@ app.get('/part-info', async (request, response) => {
   console.log(number, brand)
 
   try {
-    const res = await get('/search/articles/', { number, brand, format: 'i' })
+    const res = (await get<PartInfoType[]>('/search/articles/', { number, brand, format: 'i' }))
+      .map(item => ({
+        ...item,
+        price: Math.ceil(item.price * 1.1),
+        key: item.number
+      }))
     console.log(res)
     response.send(res)
   } catch (err) {

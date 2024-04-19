@@ -25,7 +25,10 @@ export type BrandType = {
   photo: string
 }
 
-export type ItemFromServerType = {
+export type PartInfoType = {
+  images: ABCB_ImagType[]
+  key: string
+
   distributorId: number
   grp: null | string
   code: string
@@ -79,15 +82,11 @@ export type ArticlesInfoType = Omit<SearchBrandsType, 'availability' | 'numberFi
 export type FindPartsType = SearchBrandsKeyType & ArticlesInfoType
 
 export type ItemInCartType = {
-  item: FindPartsType
+  item: PartInfoType
   amount: number
 }
 
 export type ABCB_ImagType = {
   name: string
   order: number
-}
-
-export type FindPartType = FindPartsType & {
-  price: number
 }

@@ -1,8 +1,9 @@
-export type ItemType = {
+export type PartInfoType = {
   distributorId: number
   grp: null | string
   code: string
   brand: string
+  key: string
   number: string
   numberFix: string
   description: string

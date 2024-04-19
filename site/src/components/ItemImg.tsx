@@ -21,11 +21,13 @@ const ItemImg: React.FC<ItemImgProps> = ({
 }) => {
   return (
     <div className={`ItemImg ${className}`}>
-      {/* {img && img.length > 0 ?
-        <img alt='' src={img} className='ItemImg__img' />
-        :
-        <CogIcon className='ItemImg__icon' />
-      } */}
+      {img &&
+        <img
+          alt=''
+          src={ABCB_IMG_HOSTING + img}
+          className='ItemImg__img'
+        />
+      }
       {array && array.length > 0 ?
         <img
           alt=''
