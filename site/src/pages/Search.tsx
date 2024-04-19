@@ -1,16 +1,11 @@
 import React from 'react'
 
-import { Button, Form } from 'react-bootstrap'
-import { useHistory } from 'react-router-dom'
-
-import Link from '../components/Common/Link'
-import useStore from '../hooks/useStore'
-import { items as items_fake } from '../utils/data'
 import FindPartsList from '../components/FindPartsList'
 import Input from '../components/Common/Input'
 import { FindPartsType } from '../models'
 import { useQuery } from 'react-query'
 import { getPartsByNumber } from '../queries'
+import Button from '../components/Common/Button'
 
 
 const Search: React.FC = () => {
@@ -27,7 +22,6 @@ const Search: React.FC = () => {
     ['parts-by-number', submittedText, page],
     () => getPartsByNumber(submittedText, page)
   )
-  console.log(items)
 
   return (
     <div className='container pt-5'>
@@ -38,19 +32,38 @@ const Search: React.FC = () => {
         placeholder='7J3ZZ56T7834500003'
       />
       <Button
+        green
         disabled={searchText.length === 0}
         onClick={() => setSubmittedText(searchText)}
-        type='submit'
         className='mt-2 w-100 Button Button--green'
       >
         {itemsLoading ? 'Ищем варианты...' : 'Найти'}
       </Button>
 
       {(items && items.length > 0) &&
-        <FindPartsList
-          title={`Найдено ${items.length}`}
-          items={items}
-        />
+        <>
+          <FindPartsList
+            title={`Найдено ${items.length}`}
+            items={items}
+          />
+          <div className='d-flex flex-row'>
+            <Button
+              green
+              className='me-5'
+              disabled={page === 1}
+              onClick={() => setPage(page - 1)}
+            >
+              Назад
+            </Button>
+            <Button
+              green
+              disabled={items.length < 5}
+              onClick={() => setPage(page + 1)}
+            >
+              Вперёд
+            </Button>
+          </div>
+        </>
       }
 
       {submittedText && (items && items.length === 0) &&

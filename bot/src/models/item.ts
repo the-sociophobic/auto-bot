@@ -50,7 +50,7 @@ export type ArticlesInfoType = Omit<SearchBrandsType, 'availability' | 'numberFi
 export type FindPartsType = SearchBrandsKeyType & ArticlesInfoType
 
 export type ItemInCartType = {
-  item: FindPartsType
+  item: PartInfoType
   amount: number
 }
 

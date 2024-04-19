@@ -17,6 +17,10 @@ const Cart: React.FC = () => {
 
   const user = getWebAppAuthObject()
 
+  const checkPrice = items_in_cart
+    .map(({ item, amount }) => item.price * amount)
+    .reduce((a, b) => a + b, 0)
+
   const onSubmit = async () => {
     console.log(items_in_cart)
     try {
@@ -31,7 +35,8 @@ const Cart: React.FC = () => {
             brand: item_in_cart.item.brand,
           }
         })),
-        promocode
+        promocode,
+        checkPrice
       })
     } catch (err) {
       console.log(err)
@@ -39,10 +44,6 @@ const Cart: React.FC = () => {
       window?.Telegram?.WebApp?.close?.()
     }
   }
-
-  const checkPrice = items_in_cart
-    .map(({item, amount}) => item.price * amount)
-    .reduce((a, b) => a + b)
 
   return (
     <div className='container'>

@@ -93,7 +93,7 @@ type TgNotificationPayload = {
 
 app.post('/order', async (request, response) => {
   console.log(request.body)
-  const { user, items_in_cart, promocode } = request.body
+  const { user, items_in_cart, promocode, checkPrice } = request.body
   const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`
   const text = `
 Пользователь:
@@ -101,10 +101,12 @@ ${printUsername(user)}
 
 Заказ:
 ${(items_in_cart as ItemInCartType[])
-      .map(item => ' - \"' + item.item.key + '\" - ' + item.amount + ' шт')
+      .map(item => ' - \"' + item.item.key + '\" - ' + item.amount + ' шт - ' + item.item.price + ' ₽')
     }
 
 ${promocode ? ('Промокод: ' + promocode) : ''}
+
+${checkPrice ? ('Итого: ' + checkPrice) : ''}
 `
   try {
     const messageForUser: TgNotificationPayload = {
