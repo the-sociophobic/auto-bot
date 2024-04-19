@@ -104,9 +104,10 @@ ${(items_in_cart as ItemInCartType[])
       .map(item => ' - \"' + item.item.key + '\" - ' + item.amount + ' шт - ' + item.item.price + ' ₽')
     }
 
+${checkPrice ? ('Итого: ' + checkPrice + ' ₽') : ''}
+
 ${promocode ? ('Промокод: ' + promocode) : ''}
 
-${checkPrice ? ('Итого: ' + checkPrice) : ''}
 `
   try {
     const messageForUser: TgNotificationPayload = {
@@ -115,7 +116,8 @@ ${checkPrice ? ('Итого: ' + checkPrice) : ''}
       parse_mode: 'MarkdownV2',
     }
     const messageForOrdersChat: TgNotificationPayload = {
-      chat_id: isProd() ? groupWithOrdersId : groupWithOrdersIdTest,
+      // chat_id: isProd() ? groupWithOrdersId : groupWithOrdersIdTest,
+      chat_id: groupWithOrdersId,
       text: fixStringForMarkdownV2(`${text}`),
       parse_mode: 'MarkdownV2',
     }
