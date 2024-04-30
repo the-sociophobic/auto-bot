@@ -16,6 +16,8 @@ const Cart: React.FC = () => {
   const [promocode, setPromocode] = useState('')
   console.log(items_in_cart)
 
+  const [address, setAddress] = useState('')
+
   const user = getWebAppAuthObject()
 
   const checkPrice = items_in_cart
@@ -28,6 +30,7 @@ const Cart: React.FC = () => {
       await post('/order', {
         user,
         ip: (await axios.get<{ ip: string }>('https://api.ipify.org?format=json')).data.ip,
+        address,
         items_in_cart: items_in_cart.map(item_in_cart => ({
           amount: item_in_cart.amount,
           item: {
@@ -64,6 +67,12 @@ const Cart: React.FC = () => {
           />
           <Input
             className='mt-3 mb-4'
+            value={address}
+            onChange={setAddress}
+            label='Адрес поставки'
+          />
+          <Input
+            className='mt-3 mb-4'
             value={promocode}
             onChange={setPromocode}
             label='Есть промокод?'
@@ -75,6 +84,7 @@ const Cart: React.FC = () => {
           <Button
             green
             // className='mt-2 w-100'
+            disabled={address.length < 5}
             onClick={onSubmit}
           >
             Оформить
