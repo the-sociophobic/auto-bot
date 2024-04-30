@@ -93,11 +93,12 @@ type TgNotificationPayload = {
 
 app.post('/order', async (request, response) => {
   console.log(request.body)
-  const { user, items_in_cart, promocode, checkPrice } = request.body
+  const { user, ip, items_in_cart, promocode, checkPrice } = request.body
   const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`
   const text = `
 Пользователь:
 ${printUsername(user)}
+IP: ${ip}
 
 Заказ:
 ${(items_in_cart as ItemInCartType[])
@@ -116,8 +117,8 @@ ${promocode ? ('Промокод: ' + promocode) : ''}
       parse_mode: 'MarkdownV2',
     }
     const messageForOrdersChat: TgNotificationPayload = {
-      // chat_id: isProd() ? groupWithOrdersId : groupWithOrdersIdTest,
-      chat_id: groupWithOrdersId,
+      chat_id: groupWithOrdersIdTest,
+      // chat_id: groupWithOrdersId,
       text: fixStringForMarkdownV2(`${text}`),
       parse_mode: 'MarkdownV2',
     }

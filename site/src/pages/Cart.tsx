@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import axios from 'axios'
 
 import BuyPartsList from '../components/BuyPartsList'
 import useStore from '../hooks/useStore'
@@ -26,6 +27,7 @@ const Cart: React.FC = () => {
     try {
       await post('/order', {
         user,
+        ip: (await axios.get<{ ip: string }>('https://api.ipify.org?format=json')).data.ip,
         items_in_cart: items_in_cart.map(item_in_cart => ({
           amount: item_in_cart.amount,
           item: {
