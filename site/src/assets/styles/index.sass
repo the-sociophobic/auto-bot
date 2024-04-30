@@ -17,7 +17,7 @@
   -webkit-font-smoothing: antialiased
 
 body
-  background-color: $black
+  background-color: $main-background
   .App
     width: 100vw
     height: 100%
@@ -26,7 +26,7 @@ body
     @extend .flex-column
     .Header
       height: 80px
-      background-color: black
+      background-color: $main-background
       &--relative
         position: relative
       &--fixed
@@ -83,19 +83,20 @@ $button-height: 39px
     padding: 0 16px
     height: $button-height
     line-height: $button-height
-    color: $font-black
+    color: $main-background
     font-weight: 600
     @extend .d-flex
     @extend .flex-row
     @extend .align-items-center
     @extend .text-center
-    box-shadow: 0 0 10px 0 #01FE0180
+    box-shadow: $button-box-shadow
     &:hover:enabled
       opacity: 0.85
 
   &--green
-    background: linear-gradient(269.55deg, #01FE01 0.39%, #00FFE0 95.73%)
-    border: 1px solid $green-button-border
+    background: linear-gradient(269.55deg, $green-button-primary 0.39%, $green-button-secondary 95.73%)
+    border: 1px solid $button-border
+    border: 0
   &--pink
     background: linear-gradient(269.55deg, $pink-secondary 0.39%, $pink-primary 95.73%)
     border: 1px solid $pink-primary
@@ -113,17 +114,17 @@ $button-height: 39px
     @extend .mb-3
   &__input
     width: 100%
-    background-color: $black
+    background-color: $main-background
     border-radius: 15px
     padding: 8px 15px
-    color: $white
+    color: $main-text
     line-height: 2
     outline: none
-    border: .5px solid $gray
+    border: .5px solid $secondary-text
     transition: border-color .35s
     position: relative
     &:focus
-      border-color: $white
+      border-color: $main-text
     // Remove arrows
     /* Chrome, Safari, Edge, Opera */
     &::-webkit-outer-spin-button,
@@ -151,7 +152,7 @@ $button-height: 39px
       margin-right: 10px
       color: $green-member
     &__number
-      color: $light-gray
+      color: $secondary-text
   &__children
     position: absolute
     z-index: 100
@@ -168,7 +169,7 @@ $button-height: 39px
   border: .5px solid $gray
 .focused-input
   transition: border-color .35s, box-shadow .35s
-  border: .5px solid $white
+  border: .5px solid $main-text
 .accepted-input
   transition: border-color .35s, box-shadow .35s
   border: .5px solid $green-button-border !important
@@ -258,12 +259,11 @@ $avatar-size: 24px
       width: 50px
       height: 50px
     &__name
-      @include font-params(14, 24, 600, $green-member)
+      @include font-params(14, 24, 600, $green-text)
       margin-bottom: 10px
     &__brand
       @include font-params(14, 20)
     &__deliveryPeriod
-      margin-top: 15px
       @include font-params(14, 20)
     &__available
       height: 100%
@@ -292,9 +292,10 @@ $member-height-simple: 30px
 $member-height-inline: 24px
 .green-box
   height: $member-height
-  border: .5px solid #01FF6999
+  border: $green-box-border
+  border: .5px solid $green-member
   border-radius: $member-height / 2
-  background: linear-gradient(0deg, rgba(1, 255, 105, 0.03), rgba(1, 255, 105, 0.03))
+  background: $green-box-background
   @include font-params(14, 42, 600, $green-member)
   padding: 0 9px
   margin: 0 10px 10px 0
@@ -318,3 +319,8 @@ $member-height-inline: 24px
     @extend .text-center
     width: 40px
     @include font-params(20, 22, 500, $green-member)
+
+
+svg
+  path, ellipse
+    fill: $main-background

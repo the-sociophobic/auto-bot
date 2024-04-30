@@ -46,7 +46,7 @@ const Search: React.FC = () => {
             title={`Найдено ${items.length}`}
             items={items}
           />
-          <div className='d-flex flex-row'>
+          <div className='d-flex flex-row mb-5'>
             <Button
               green
               className='me-5'

@@ -1,12 +1,11 @@
 import React from 'react'
 
-import { Row, Col, Button } from 'react-bootstrap'
-
 import Link from './Link'
 import useStore from '../../hooks/useStore'
 import { getWebAppAuthObject } from '../../auth'
 import Avatar from './Avatar'
 import printUsername from '../../utils/printUsername'
+import Button from './Button'
 
 
 const Header: React.FC = () => {
@@ -22,17 +21,19 @@ const Header: React.FC = () => {
             <div className="d-flex flex-row align-items-center font-inherit">
               <Avatar img={user.photo_url} className="me-10 my-5" />
               <div>
-              {printUsername(user)}
+                {printUsername(user)}
               </div>
             </div>
           }
-          <div className='d-flex flex-row justify-content-end'>
-            <Link to='/cart'>
-              <Button>
-                Корзина {items_in_cart.length}
-              </Button>
-            </Link>
-          </div>
+          {items_in_cart.length > 0 &&
+            <div className='d-flex flex-row justify-content-end'>
+              <Link to='/cart'>
+                <Button green>
+                  Корзина {items_in_cart.length}
+                </Button>
+              </Link>
+            </div>
+          }
         </div>
       </div>
     </>

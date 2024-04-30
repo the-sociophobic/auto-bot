@@ -41,12 +41,12 @@ const Item: React.FC<ItemProps> = ({
           array={item.images}
           className='List__item__Avatar me-4'
         />
-        <div className='d-flex flex-column flex-grow-1'>
+        <div className='d-flex flex-column flex-grow-1 me-3'>
           <div className='List__item__name'>
             {item.description}
           </div>
           <div className='List__item__brand'>
-            {item.brand}
+            Бренд: {item.brand}
           </div>
         </div>
       </div>

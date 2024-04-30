@@ -83,7 +83,7 @@ const Cart: React.FC = () => {
           </h4>
           <Button
             green
-            // className='mt-2 w-100'
+            className='mb-3'
             disabled={address.length < 5}
             onClick={onSubmit}
           >
