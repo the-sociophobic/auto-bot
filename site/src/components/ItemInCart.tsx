@@ -31,6 +31,19 @@ const ItemInCart: React.FC<ItemInCartProps> = ({
           <div className='List__item__brand'>
             {item.brand}
           </div>
+          <div className='List__item__deliveryPeriod'>
+            Сроки поставки: {
+              item.deliveryPeriod === 0 ?
+                'неизвестно'
+                :
+                `${item.deliveryPeriod} ${
+                  item.deliveryPeriodMax.length > 0 ?
+                    `- ${item.deliveryPeriodMax}`
+                    :
+                    ''
+                }`
+            }
+          </div>
         </div>
         <div className='d-flex flex-column justify-content-between align-items-center'>
           <div className='mb-3'>
