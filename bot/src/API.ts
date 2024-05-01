@@ -177,6 +177,8 @@ ${promocode ? ('Промокод: ' + promocode) : ''}
     await axios.post(url, messageForOrdersChat)
   } catch (err) {
     console.log(err.message)
+  } finally {
+    response.send('')
   }
 })
 

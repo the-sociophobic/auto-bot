@@ -1,9 +1,9 @@
+import { FC, useEffect } from 'react'
 import { Toaster } from 'react-hot-toast'
 
 import QueryWrapper from './components/QueryWrapper'
 import ProtectedRoutes from './components/Common/ProtectedRoutes'
 import { PopupWrapper } from './components/Common/Popup'
-import { FC, useEffect } from 'react'
 
 
 const App: FC = () => {

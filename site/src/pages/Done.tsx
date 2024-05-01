@@ -9,7 +9,7 @@ const Done: React.FC = () => {
 
   return (
     <div className='container'>
-      {user && printUsername(user)}, Ваша заявка оформлена! Мы с вами свяжемся
+      {user && printUsername(user)}, Ваша заявка оформлена! Мы с вами свяжемся. (Окно можно закрыть)
     </div>
   )
 }

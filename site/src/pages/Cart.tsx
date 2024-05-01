@@ -7,6 +7,7 @@ import { post } from '../queries/utils'
 import { getWebAppAuthObject } from '../auth'
 import Input from '../components/Common/Input'
 import Button from '../components/Common/Button'
+import { useHistory } from 'react-router'
 
 
 const Cart: React.FC = () => {
@@ -24,6 +25,7 @@ const Cart: React.FC = () => {
     .map(({ item, amount }) => item.price * amount)
     .reduce((a, b) => a + b, 0)
 
+  const history = useHistory()
   const onSubmit = async () => {
     console.log(items_in_cart)
     try {
@@ -46,7 +48,8 @@ const Cart: React.FC = () => {
     } catch (err) {
       console.log(err)
     } finally {
-      window?.Telegram?.WebApp?.close?.()
+      window.Telegram.WebApp.close()
+      history.push('/done')
     }
   }
 
