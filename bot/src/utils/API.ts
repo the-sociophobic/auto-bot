@@ -36,20 +36,25 @@ const post = async <T>(props: {
   path: string
   params?: object | URLSearchParams
   data: object
-  user: User
-}) =>
-  (
+}) => {
+  const URL = `${API_HOST + props.path}?${new URLSearchParams(
+    {
+      userlogin: API_USER,
+      userpsw: API_PASS,
+      ...props.params
+    } as URLSearchParams
+  ).toString()}`
+
+  return (
     await axios.post<T>(
-      `${API_HOST + props.path}?${new URLSearchParams(
-        props.params as URLSearchParams
-      ).toString()}`,
-      props.data,
+      URL,
       {
-        headers: {
-          telegramData: encodeURIComponent(emulateTelegramInitData(props.user))
-        }
-      }
+        userlogin: API_USER,
+        userpsw: API_PASS,
+          ...props.data
+      },
     )
   ).data
+}
 
 export { get, post }

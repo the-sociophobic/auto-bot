@@ -26,13 +26,26 @@ const ItemPage: React.FC = () => {
   )
   console.log(offers)
 
-  return !offers ? <></> : (
+  return (
     <div className='container pt-5'>
-      <BuyPartsList
-        title='Предложения'
-        items={offers}
-        img={img}
-      />
+      <h4 className='h4 mb-4'>
+        {number} {brand}
+      </h4>
+      {partLoading ?
+        <>Загружаем информацию...</>
+        :
+        !offers || offers.length === 0 ?
+          <>Ничего не найдено</>
+          :
+          <>
+            {offers[0].brand !== brand && <>Найдены только аналоги <br /></>}
+            <BuyPartsList
+              title='Предложения'
+              items={offers}
+              img={img}
+            />
+          </>
+      }
     </div>
   )
 }

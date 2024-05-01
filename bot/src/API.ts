@@ -2,7 +2,7 @@ import express, { Request, Responce } from 'express'
 import axios from 'axios'
 import cors from 'cors'
 
-import { get } from './utils/API'
+import { get, post } from './utils/API'
 import { ArticlesInfoType, ItemInCartType, PartInfoType, SearchBrandsKeyType, SearchBrandsType } from './models/item'
 import fixStringForMarkdownV2 from './utils/fixStringForMarkdownV2'
 import printUsername from './utils/printUsername'
@@ -67,21 +67,62 @@ app.get('/find-parts', async (request: Request, response: Responce) => {
 
 app.get('/part-info', async (request, response) => {
   const { number, brand } = request.query
-  console.log(number, brand)
+  let res: PartInfoType[] = []
 
   try {
-    const res = (await get<PartInfoType[]>('/search/articles/', { number, brand, format: 'i' }))
+    res = (await get<PartInfoType[]>('/search/articles/', {
+      number,
+      brand,
+      format: 'i',
+      withOutAnalogs: 1,
+      limit: 20
+    }))
+  } catch (err) {
+    console.log(err)
+  }
+
+  try {
+    if (res.length === 0 || res.findIndex(item => item.brand === brand) === -1)
+      res = (await get<PartInfoType[]>('/search/articles/', {
+        number,
+        brand,
+        format: 'i',
+        useOnlineStocks: 1,
+        withOutAnalogs: 1,
+        limit: 30
+      }))
+  } catch (err) {
+    console.log(err)
+  }
+
+  try {
+    if (res.length === 0)
+      res = (await get<PartInfoType[]>('/search/articles/', {
+        number,
+        brand,
+        format: 'i',
+        useOnlineStocks: 1,
+        limit: 100
+      }))
+  } catch (err) {
+    console.log(err)
+  }
+
+  response.send(
+    res
+      .sort((a, b) => {
+        if (a.brand === brand)
+          return -1
+        if (b.brand === brand)
+          return 1
+        return 0
+      })
       .map(item => ({
         ...item,
         price: Math.ceil(item.price * 1.1),
-        key: item.number
+        key: item.itemKey
       }))
-    console.log(res)
-    response.send(res)
-  } catch (err) {
-    console.log(err.message)
-    response.send([])
-  }
+  )
 })
 
 type TgNotificationPayload = {
@@ -125,8 +166,8 @@ ${promocode ? ('Промокод: ' + promocode) : ''}
       parse_mode: 'MarkdownV2',
     }
     const messageForOrdersChat: TgNotificationPayload = {
-      chat_id: groupWithOrdersIdTest,
-      // chat_id: groupWithOrdersId,
+      // chat_id: groupWithOrdersIdTest,
+      chat_id: groupWithOrdersId,
       text: fixStringForMarkdownV2(`${text}`),
       parse_mode: 'MarkdownV2',
     }

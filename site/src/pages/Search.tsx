@@ -23,6 +23,8 @@ const Search: React.FC = () => {
     () => getPartsByNumber(submittedText, page)
   )
 
+  console.log(items)
+
   return (
     <div className='container pt-5'>
       <Input
