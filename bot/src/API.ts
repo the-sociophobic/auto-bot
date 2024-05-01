@@ -151,7 +151,7 @@ ${printUsername(user)}
 Заказ:
 ${(items_in_cart as ItemInCartType[])
       .map(item => ` - ${item.item.brand} ${item.item.number} - ${item.amount} шт - ${item.item.price} ₽
-`)
+`).join('')
     }
 
 ${checkPrice ? ('Итого: ' + checkPrice + ' ₽') : ''}
