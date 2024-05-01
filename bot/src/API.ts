@@ -146,12 +146,12 @@ app.post('/order', async (request, response) => {
   const text = `
 Пользователь:
 ${printUsername(user)}
-IP: ${ip}
 Адрес: ${address}
 
 Заказ:
 ${(items_in_cart as ItemInCartType[])
-      .map(item => ' - \"' + item.item.key + '\" - ' + item.amount + ' шт - ' + item.item.price + ' ₽')
+      .map(item => ` - ${item.item.brand} ${item.item.number} - ${item.amount} шт - ${item.item.price} ₽
+`)
     }
 
 ${checkPrice ? ('Итого: ' + checkPrice + ' ₽') : ''}
