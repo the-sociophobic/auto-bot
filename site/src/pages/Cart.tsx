@@ -68,12 +68,9 @@ const Cart: React.FC = () => {
             title='Корзина'
             items={items_in_cart.map(item_in_cart => item_in_cart.item)}
           />
-          <Input
-            className='mt-3 mb-4'
-            value={address}
-            onChange={setAddress}
-            label='Адрес поставки'
-          />
+          <div className='my-5'>
+            Ваш заказ будет доставлен в наш сервис по адресу Поселковая улица 23а
+          </div>
           <Input
             className='mt-3 mb-4'
             value={promocode}

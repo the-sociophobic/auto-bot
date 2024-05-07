@@ -162,7 +162,9 @@ ${promocode ? ('Промокод: ' + promocode) : ''}
   try {
     const messageForUser: TgNotificationPayload = {
       chat_id: user.id,
-      text: fixStringForMarkdownV2(`${text}`),
+      text: fixStringForMarkdownV2(`${text}
+
+Ваш заказ будет доставлен в наш сервис по адресу Поселковая улица 23а`),
       parse_mode: 'MarkdownV2',
     }
     const messageForOrdersChat: TgNotificationPayload = {

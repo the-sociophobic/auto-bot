@@ -37,10 +37,10 @@ const Item: React.FC<ItemProps> = ({
   return !item ? <></> : linkWrapper(
     <div className='List__item'>
       <div className='d-flex flex-row justify-content-start pb-3'>
-        <ItemImg
+        {/* <ItemImg
           array={item.images}
           className='List__item__Avatar me-4'
-        />
+        /> */}
         <div className='d-flex flex-column flex-grow-1 me-3'>
           <div className='List__item__name'>
             {item.description}

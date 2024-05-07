@@ -5,6 +5,7 @@ import { ItemInCartType, ItemType } from '../models'
 import Add from './AddButton'
 import useStore from '../hooks/useStore'
 import ItemImg from './ItemImg'
+import days from '../utils/countable/days'
 
 
 export type ItemInCartProps = {
@@ -20,10 +21,10 @@ const ItemInCart: React.FC<ItemInCartProps> = ({
   return !item ? <></> :
     <div className='List__item'>
       <div className='d-flex flex-row justify-content-start pb-1'>
-        <ItemImg
+        {/* <ItemImg
           array={item.images}
           className='List__item__Avatar me-4'
-        />
+        /> */}
         <div className='d-flex flex-column flex-grow-1'>
           <div className='List__item__name'>
             {item.brand}<br />
@@ -38,7 +39,7 @@ const ItemInCart: React.FC<ItemInCartProps> = ({
             {item.price}₽ (доступно {item.availability})
           </div>
           <div className='List__item__deliveryPeriod'>
-            Ожид. срок: {
+            {/* Поставка: {
               item.deliveryPeriod === 0 ?
                 'неизвестно'
                 :
@@ -46,7 +47,13 @@ const ItemInCart: React.FC<ItemInCartProps> = ({
                   `- ${item.deliveryPeriodMax}`
                   :
                   ''
-                }`
+                } ${days(item.deliveryPeriodMax.length > 0 ? parseInt(item.deliveryPeriodMax) || item.deliveryPeriod)}`
+            } */}
+            Поставка: {
+              item.deliveryPeriod === 0 ?
+                'неизвестно'
+                :
+                `${item.deliveryPeriod} ${days(item.deliveryPeriod)}`
             }
           </div>
         </div>
