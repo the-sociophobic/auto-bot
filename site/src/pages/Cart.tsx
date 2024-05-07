@@ -84,7 +84,7 @@ const Cart: React.FC = () => {
           <Button
             green
             className='mb-3'
-            disabled={address.length < 5}
+            // disabled={address.length < 5}
             onClick={onSubmit}
           >
             Оформить

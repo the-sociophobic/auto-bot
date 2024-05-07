@@ -5,7 +5,7 @@ import { ItemInCartType, ItemType } from '../models'
 import Add from './AddButton'
 import useStore from '../hooks/useStore'
 import ItemImg from './ItemImg'
-import days from '../utils/countable/days'
+import hours from '../utils/countable/hours'
 
 
 export type ItemInCartProps = {
@@ -53,7 +53,7 @@ const ItemInCart: React.FC<ItemInCartProps> = ({
               item.deliveryPeriod === 0 ?
                 'неизвестно'
                 :
-                `${item.deliveryPeriod} ${days(item.deliveryPeriod)}`
+                `${item.deliveryPeriod} ${hours(item.deliveryPeriod)}`
             }
           </div>
         </div>
