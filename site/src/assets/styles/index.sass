@@ -324,3 +324,37 @@ $member-height-inline: 24px
 svg
   path, ellipse
     fill: $main-background
+
+
+.Sort
+  position: relative
+  padding-right: 30px
+  margin-right: 30px
+  cursor: pointer
+  svg
+    display: none
+  &--asc,
+  &--desc
+    text-decoration: underline
+    svg
+      display: block
+      position: absolute
+      right: 0
+      top: 5px
+      width: 20px
+      height: 20px
+      path
+        fill: $green-member
+    // &::after
+    //   content: ''
+    //   position: absolute
+    //   right: 0
+    //   top: 5px
+    //   width: 20px
+    //   height: 20px
+    //   background-image: $dropdown-image
+    //   object-fit: contain
+  &--asc
+    // &::after
+    svg
+      transform: rotate(180deg)

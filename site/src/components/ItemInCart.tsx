@@ -17,9 +17,9 @@ const ItemInCart: React.FC<ItemInCartProps> = ({
   item_in_cart: { item, amount },
 }) => {
   const setItemInCart = useStore(state => state.setItemInCart)
-  const useDeliveryPeriodMax = item.deliveryPeriodMax !== 0 && item.deliveryPeriodMax !== item.deliveryPeriod
   const deliveryPeriod = Math.ceil(item.deliveryPeriod / 24)
   const deliveryPeriodMax = Math.ceil(item.deliveryPeriodMax / 24)
+  const useDeliveryPeriodMax = deliveryPeriodMax !== 0 && deliveryPeriodMax !== deliveryPeriod
 
   return !item ? <></> :
     <div className='List__item'>
@@ -46,8 +46,8 @@ const ItemInCart: React.FC<ItemInCartProps> = ({
               deliveryPeriod === 0 ?
                 'неизвестно'
                 :
-                `${deliveryPeriod} ${useDeliveryPeriodMax ?
-                  `- ${deliveryPeriodMax}`
+                `${deliveryPeriod}${useDeliveryPeriodMax ?
+                  `-${deliveryPeriodMax}`
                   :
                   ''
                 } ${days(useDeliveryPeriodMax ? deliveryPeriodMax : deliveryPeriod)}`

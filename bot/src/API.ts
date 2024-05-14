@@ -14,7 +14,7 @@ app.use(cors())
 app.use(express.json())
 
 const { API_PORT, BOT_TOKEN } = process.env
-const PARTS_ON_PAGE = 5
+const PARTS_ON_PAGE = 100
 const groupWithOrdersId = -4177786184
 const groupWithOrdersIdTest = -4133485421
 
@@ -43,20 +43,21 @@ app.get('/find-parts', async (request: Request, response: Responce) => {
     )
 
     items = parts_on_page
+      .filter(item => item.availability > 0)
 
-    const parts_with_imgs = await Promise.all(
-      parts_on_page.map(
-        async part => ({
-          ...part,
-          ...(await get<ArticlesInfoType>('/articles/info', {
-            number,
-            brand: part.brand,
-            format: 'i'
-          }))
-        })
-      ))
+    // const parts_with_imgs = await Promise.all(
+    //   parts_on_page.map(
+    //     async part => ({
+    //       ...part,
+    //       ...(await get<ArticlesInfoType>('/articles/info', {
+    //         number,
+    //         brand: part.brand,
+    //         format: 'i'
+    //       }))
+    //     })
+    //   ))
 
-    items = parts_with_imgs
+    // items = parts_with_imgs
 
   } catch (err) {
     console.log(err)
