@@ -39,7 +39,7 @@ export type PartInfoType = {
   availability: number
   packing: number
   deliveryPeriod: number
-  deliveryPeriodMax: string
+  deliveryPeriodMax: number
   deadlineReplace: string
   distributorCode: null | number
   supplierCode: number

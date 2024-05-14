@@ -5,7 +5,7 @@ import { ItemInCartType, ItemType } from '../models'
 import Add from './AddButton'
 import useStore from '../hooks/useStore'
 import ItemImg from './ItemImg'
-import hours from '../utils/countable/hours'
+import days from '../utils/countable/days'
 
 
 export type ItemInCartProps = {
@@ -17,6 +17,9 @@ const ItemInCart: React.FC<ItemInCartProps> = ({
   item_in_cart: { item, amount },
 }) => {
   const setItemInCart = useStore(state => state.setItemInCart)
+  const useDeliveryPeriodMax = item.deliveryPeriodMax !== 0 && item.deliveryPeriodMax !== item.deliveryPeriod
+  const deliveryPeriod = Math.ceil(item.deliveryPeriod / 24)
+  const deliveryPeriodMax = Math.ceil(item.deliveryPeriodMax / 24)
 
   return !item ? <></> :
     <div className='List__item'>
@@ -39,21 +42,15 @@ const ItemInCart: React.FC<ItemInCartProps> = ({
             {item.price}₽ (доступно {item.availability})
           </div>
           <div className='List__item__deliveryPeriod'>
-            {/* Поставка: {
-              item.deliveryPeriod === 0 ?
+            Поставка: {
+              deliveryPeriod === 0 ?
                 'неизвестно'
                 :
-                `${item.deliveryPeriod} ${item.deliveryPeriodMax.length > 0 ?
-                  `- ${item.deliveryPeriodMax}`
+                `${deliveryPeriod} ${useDeliveryPeriodMax ?
+                  `- ${deliveryPeriodMax}`
                   :
                   ''
-                } ${days(item.deliveryPeriodMax.length > 0 ? parseInt(item.deliveryPeriodMax) || item.deliveryPeriod)}`
-            } */}
-            Поставка: {
-              item.deliveryPeriod === 0 ?
-                'неизвестно'
-                :
-                `${item.deliveryPeriod} ${hours(item.deliveryPeriod)}`
+                } ${days(useDeliveryPeriodMax ? deliveryPeriodMax : deliveryPeriod)}`
             }
           </div>
         </div>

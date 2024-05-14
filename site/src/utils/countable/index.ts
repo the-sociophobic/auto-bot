@@ -1,10 +1,11 @@
-const countable = (number: number, words: [string, string, string]) =>  {
-  const _number = number % 10
-  if ([1].includes(_number) && number % 100 !== 11)
+const countable = (number: number, words: [string, string, string]) => {
+  if ((number % 100 >= 5 && number % 100 <= 20) || number % 10 >= 5)
+    return words[2]
+
+  if (number % 10 === 1)
     return words[0]
-  if ([2, 3, 4].includes(_number))
-    return words[1]
-  return words[2]
+
+  return words[1]
 }
 
 

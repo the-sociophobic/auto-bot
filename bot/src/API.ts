@@ -137,7 +137,7 @@ app.post('/order', async (request, response) => {
   const {
     user,
     ip,
-    address,
+    phone,
     items_in_cart,
     promocode,
     checkPrice
@@ -146,7 +146,7 @@ app.post('/order', async (request, response) => {
   const text = `
 Пользователь:
 ${printUsername(user)}
-Адрес: ${address}
+${phone && `Телефон ${phone}`}
 
 Заказ:
 ${(items_in_cart as ItemInCartType[])
@@ -164,7 +164,7 @@ ${promocode ? ('Промокод: ' + promocode) : ''}
       chat_id: user.id,
       text: fixStringForMarkdownV2(`${text}
 
-Ваш заказ будет доставлен в наш сервис по адресу Поселковая улица 23а`),
+Ваш заказ будет доставлен в наш пункт выдачи по адресу Поселковая улица 23а. График работы работы склада, пн-пт 9:00-17:00`),
       parse_mode: 'MarkdownV2',
     }
     const messageForOrdersChat: TgNotificationPayload = {

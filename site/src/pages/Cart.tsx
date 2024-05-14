@@ -12,14 +12,13 @@ import { useHistory } from 'react-router'
 
 const Cart: React.FC = () => {
   const items_in_cart = useStore(state => state.items_in_cart)
-  const { imgs } = useStore(state => state)
-  console.log(imgs)
   const [promocode, setPromocode] = useState('')
-  console.log(items_in_cart)
+  const [phone, setPhone] = useState('')
 
   const [address, setAddress] = useState('')
 
   const user = getWebAppAuthObject()
+  const requestPhone = user && !user.username
 
   const checkPrice = items_in_cart
     .map(({ item, amount }) => item.price * amount)
@@ -42,6 +41,7 @@ const Cart: React.FC = () => {
             brand: item_in_cart.item.brand,
           }
         })),
+        phone: requestPhone ? phone : undefined,
         promocode,
         checkPrice
       })
@@ -69,8 +69,17 @@ const Cart: React.FC = () => {
             items={items_in_cart.map(item_in_cart => item_in_cart.item)}
           />
           <div className='my-5'>
-            Ваш заказ будет доставлен в наш сервис по адресу Поселковая улица 23а
+            Ваш заказ будет доставлен в наш пункт выдачи по адресу Поселковая улица 23а. График работы работы склада, пн-пт 9:00-17:00
           </div>
+          {requestPhone &&
+            <Input
+              number
+              className='mt-3 mb-4'
+              value={phone}
+              onChange={setPhone}
+              label='Номер телефона'
+            />
+          }
           <Input
             className='mt-3 mb-4'
             value={promocode}
@@ -84,7 +93,7 @@ const Cart: React.FC = () => {
           <Button
             green
             className='mb-3'
-            // disabled={address.length < 5}
+            disabled={requestPhone && phone.length < 10}
             onClick={onSubmit}
           >
             Оформить
