@@ -15,7 +15,7 @@ app.use(express.json())
 
 const { API_PORT, BOT_TOKEN } = process.env
 const PARTS_ON_PAGE = 100
-const groupWithOrdersId = -4177786184
+const groupWithOrdersId = -1002318545165
 const groupWithOrdersIdTest = -4133485421
 
 
@@ -147,7 +147,7 @@ app.post('/order', async (request, response) => {
   const text = `
 Пользователь:
 ${printUsername(user)}
-${phone && `Телефон ${phone}`}
+${phone ? `Телефон ${phone}` : ''}
 
 Заказ:
 ${(items_in_cart as ItemInCartType[])
