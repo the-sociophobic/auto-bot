@@ -185,6 +185,11 @@ ${promocode ? ('Промокод: ' + promocode) : ''}
   }
 })
 
+app.get('/maytry/products', async (request, response) => {
+  const maytryRes = (await axios.get('http://localhost:5010/products')).data
+
+  response.send(maytryRes)
+})
 
 const initAPI = () => {
   app.listen(API_PORT, () => console.log(`Running on port ${API_PORT}`))
