@@ -190,6 +190,11 @@ app.get('/maytry/data', async (request, response) => {
 
   response.send(maytryRes)
 })
+app.get('/maytry/update-data', async (request, response) => {
+  const maytryRes = (await axios.get('http://localhost:5010/update-data')).data
+
+  response.send(maytryRes)
+})
 
 const initAPI = () => {
   app.listen(API_PORT, () => console.log(`Running on port ${API_PORT}`))
