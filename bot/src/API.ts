@@ -185,8 +185,8 @@ ${promocode ? ('Промокод: ' + promocode) : ''}
   }
 })
 
-app.get('/maytry/products', async (request, response) => {
-  const maytryRes = (await axios.get('http://localhost:5010/products')).data
+app.get('/maytry/data', async (request, response) => {
+  const maytryRes = (await axios.get('http://localhost:5010/data')).data
 
   response.send(maytryRes)
 })
