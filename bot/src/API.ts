@@ -195,6 +195,15 @@ app.get('/maytry/update-data', async (request, response) => {
 
   response.send(maytryRes)
 })
+app.post('/maytry/post-boxberry', async (request, response) => {
+  const { body } = request
+  const res = (await axios.post(
+    'https://api.boxberry.ru/json.php',
+    body
+  )).data
+
+  response.send(res)
+})
 
 const initAPI = () => {
   app.listen(API_PORT, () => console.log(`Running on port ${API_PORT}`))
