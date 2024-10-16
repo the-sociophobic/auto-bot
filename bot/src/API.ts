@@ -197,12 +197,9 @@ app.get('/maytry/update-data', async (request, response) => {
 })
 app.post('/maytry/post-boxberry', async (request, response) => {
   const { body } = request
-  const res = (await axios.post(
-    'https://api.boxberry.ru/json.php',
-    body
-  )).data
+  const maytryRes = (await axios.post('http://localhost:5010/update-data', body)).data
 
-  response.send(res)
+  response.send(maytryRes)
 })
 
 const initAPI = () => {
