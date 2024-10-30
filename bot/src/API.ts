@@ -195,9 +195,20 @@ app.get('/maytry/update-data', async (request, response) => {
 
   response.send(maytryRes)
 })
-app.post('/maytry/post-boxberry', async (request, response) => {
+app.post('/parsel-create', async (request, response) => {
   const { body } = request
-  const maytryRes = (await axios.post('http://localhost:5010/update-data', body)).data
+  const maytryRes = (await axios.post('http://localhost:5010/parsel-create', body)).data
+
+  response.send(maytryRes)
+})
+app.post('/delivery-calculation', async (request, response) => {
+  const { body } = request
+  const maytryRes = (await axios.post('http://localhost:5010/delivery-calculation', body)).data
+
+  response.send(maytryRes)
+})
+app.get('/maytry/orders', async (request, response) => {
+  const maytryRes = (await axios.get('http://localhost:5010/orders')).data
 
   response.send(maytryRes)
 })

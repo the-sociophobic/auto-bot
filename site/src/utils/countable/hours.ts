@@ -1,8 +1,8 @@
 import countable from '.'
 
 
-const days = (number: number) =>
+const hours = (number: number) =>
   countable(number, ['час', 'часа', 'часов'])
 
 
-export default days
+export default hours
