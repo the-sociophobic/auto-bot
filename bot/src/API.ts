@@ -195,13 +195,13 @@ app.get('/maytry/update-data', async (request, response) => {
 
   response.send(maytryRes)
 })
-app.post('/parsel-create', async (request, response) => {
+app.post('/maytry/parsel-create', async (request, response) => {
   const { body } = request
   const maytryRes = (await axios.post('http://localhost:5010/parsel-create', body)).data
 
   response.send(maytryRes)
 })
-app.post('/delivery-calculation', async (request, response) => {
+app.post('/maytry/delivery-calculation', async (request, response) => {
   const { body } = request
   const maytryRes = (await axios.post('http://localhost:5010/delivery-calculation', body)).data
 
