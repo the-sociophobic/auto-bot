@@ -195,6 +195,11 @@ app.get('/maytry/update-data', async (request, response) => {
 
   response.send(maytryRes)
 })
+app.get('/maytry/update-combined-data', async (request, response) => {
+  const maytryRes = (await axios.get('http://localhost:5010/update-combined-data')).data
+
+  response.send(maytryRes)
+})
 app.post('/maytry/parsel-create', async (request, response) => {
   const { body } = request
   const maytryRes = (await axios.post('http://localhost:5010/parsel-create', body)).data
