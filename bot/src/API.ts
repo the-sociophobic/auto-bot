@@ -217,6 +217,11 @@ app.get('/maytry/orders', async (request, response) => {
 
   response.send(maytryRes)
 })
+app.get('/maytry/orders-in-1C', async (request, response) => {
+  const maytryRes = (await axios.get('http://localhost:5010/orders-in-1C')).data
+
+  response.send(maytryRes)
+})
 app.post('/maytry/register-orders-in-1C', async (request, response) => {
   const { body } = request
   const maytryRes = (await axios.post('http://localhost:5010/register-orders-in-1C', body)).data
