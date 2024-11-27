@@ -217,6 +217,12 @@ app.get('/maytry/orders', async (request, response) => {
 
   response.send(maytryRes)
 })
+app.post('/maytry/register-orders-in-1C', async (request, response) => {
+  const { body } = request
+  const maytryRes = (await axios.post('http://localhost:5010/register-orders-in-1C', body)).data
+
+  response.send(maytryRes)
+})
 
 const initAPI = () => {
   app.listen(API_PORT, () => console.log(`Running on port ${API_PORT}`))
