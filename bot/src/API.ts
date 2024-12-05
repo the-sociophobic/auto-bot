@@ -3,10 +3,15 @@ import axios from 'axios'
 import cors from 'cors'
 
 import { get, post } from './utils/API'
-import { ArticlesInfoType, ItemInCartType, PartInfoType, SearchBrandsKeyType, SearchBrandsType } from './models/item'
+import {
+  // ArticlesInfoType,
+  ItemInCartType,
+  PartInfoType,
+  SearchBrandsKeyType,
+  SearchBrandsType
+} from './models/item'
 import fixStringForMarkdownV2 from './utils/fixStringForMarkdownV2'
 import printUsername from './utils/printUsername'
-import isProd from './utils/isProd'
 
 
 const app = express()
@@ -185,6 +190,7 @@ ${promocode ? ('Промокод: ' + promocode) : ''}
   }
 })
 
+// Maytry
 app.get('/maytry/data', async (request, response) => {
   const maytryRes = (await axios.get('http://localhost:5010/data')).data
 
@@ -228,6 +234,20 @@ app.post('/maytry/register-orders-in-1C', async (request, response) => {
 
   response.send(maytryRes)
 })
+
+// Исследование Марсиан 367
+app.get('/martian-research-367/answers', async (request, response) => {
+  const res = (await axios.get('http://localhost:5025/answers')).data
+
+  response.send(res)
+})
+app.post('/martian-research-367/answer', async (request, response) => {
+  const { body } = request
+  const res = (await axios.post('http://localhost:5025/answer', body)).data
+
+  response.send(res)
+})
+
 
 const initAPI = () => {
   app.listen(API_PORT, () => console.log(`Running on port ${API_PORT}`))
