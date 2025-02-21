@@ -22,14 +22,14 @@ app.use(cors({
     'https://the-sociophobic.github.io',
   ]
 }))
-const my_cors = (req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*')
-  res.setHeader('Access-Control-Allow-Methods', '*')
-  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type')
-  res.setHeader('Access-Control-Allow-Credentials', true)
-  next()
-}
-app.use(my_cors)
+// const my_cors = (req, res, next) => {
+//   res.setHeader('Access-Control-Allow-Origin', '*')
+//   res.setHeader('Access-Control-Allow-Methods', '*')
+//   res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type')
+//   res.setHeader('Access-Control-Allow-Credentials', true)
+//   next()
+// }
+// app.use(my_cors)
 app.use(express.json())
 
 const { API_PORT, BOT_TOKEN } = process.env
