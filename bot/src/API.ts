@@ -15,7 +15,13 @@ import printUsername from './utils/printUsername'
 
 
 const app = express()
-app.use(cors())
+app.use(cors({
+  credentials: true,
+  origin: [
+    'https://maytry.ru',
+    'https://the-sociophobic.github.io',
+  ]
+}))
 app.use(express.json())
 
 const { API_PORT, BOT_TOKEN } = process.env
