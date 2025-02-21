@@ -234,6 +234,36 @@ app.post('/maytry/register-orders-in-1C', async (request, response) => {
 
   response.send(maytryRes)
 })
+app.post('/maytry/login', async (request, response) => {
+  const { body } = request
+  const maytryRes = (await axios.post('http://localhost:5010/login', body)).data
+
+  response.send(maytryRes)
+})
+app.post('/maytry/login-after-order', async (request, response) => {
+  const { body } = request
+  const maytryRes = (await axios.post('http://localhost:5010/login-after-order', body)).data
+
+  response.send(maytryRes)
+})
+app.post('/maytry/register', async (request, response) => {
+  const { body } = request
+  const maytryRes = (await axios.post('http://localhost:5010/register', body)).data
+
+  response.send(maytryRes)
+})
+app.post('/maytry/user', async (request, response) => {
+  const { body } = request
+  const maytryRes = (await axios.post('http://localhost:5010/user', body)).data
+
+  response.send(maytryRes)
+})
+app.post('/maytry/user-orders', async (request, response) => {
+  const { body } = request
+  const maytryRes = (await axios.post('http://localhost:5010/user-orders', body)).data
+
+  response.send(maytryRes)
+})
 
 // Исследование Марсиан 367
 app.get('/martian-research-367/answers', async (request, response) => {
