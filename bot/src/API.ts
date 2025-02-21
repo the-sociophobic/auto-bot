@@ -191,79 +191,21 @@ ${promocode ? ('Промокод: ' + promocode) : ''}
 })
 
 // Maytry
-app.get('/maytry/data', async (request, response) => {
-  const maytryRes = (await axios.get('http://localhost:5010/data')).data
+app.get('/maytry/:url', async (request, response) => {
+  const { url } = request.params
+  const maytryRes = (await axios.get(`http://localhost:5010/${url}`)).data
 
   response.send(maytryRes)
 })
-app.get('/maytry/update-data', async (request, response) => {
-  const maytryRes = (await axios.get('http://localhost:5010/update-data')).data
 
-  response.send(maytryRes)
-})
-app.get('/maytry/update-combined-data', async (request, response) => {
-  const maytryRes = (await axios.get('http://localhost:5010/update-combined-data')).data
-
-  response.send(maytryRes)
-})
-app.post('/maytry/parsel-create', async (request, response) => {
+app.post('/maytry/:url', async (request, response) => {
+  const { url } = request.params
   const { body } = request
-  const maytryRes = (await axios.post('http://localhost:5010/parsel-create', body)).data
+  const maytryRes = (await axios.post(`http://localhost:5010/${url}`, body)).data
 
   response.send(maytryRes)
 })
-app.post('/maytry/delivery-calculation', async (request, response) => {
-  const { body } = request
-  const maytryRes = (await axios.post('http://localhost:5010/delivery-calculation', body)).data
 
-  response.send(maytryRes)
-})
-app.get('/maytry/orders', async (request, response) => {
-  const maytryRes = (await axios.get('http://localhost:5010/orders')).data
-
-  response.send(maytryRes)
-})
-app.get('/maytry/orders-in-1C', async (request, response) => {
-  const maytryRes = (await axios.get('http://localhost:5010/orders-in-1C')).data
-
-  response.send(maytryRes)
-})
-app.post('/maytry/register-orders-in-1C', async (request, response) => {
-  const { body } = request
-  const maytryRes = (await axios.post('http://localhost:5010/register-orders-in-1C', body)).data
-
-  response.send(maytryRes)
-})
-app.post('/maytry/login', async (request, response) => {
-  const { body } = request
-  const maytryRes = (await axios.post('http://localhost:5010/login', body)).data
-
-  response.send(maytryRes)
-})
-app.post('/maytry/login-after-order', async (request, response) => {
-  const { body } = request
-  const maytryRes = (await axios.post('http://localhost:5010/login-after-order', body)).data
-
-  response.send(maytryRes)
-})
-app.post('/maytry/register', async (request, response) => {
-  const { body } = request
-  const maytryRes = (await axios.post('http://localhost:5010/register', body)).data
-
-  response.send(maytryRes)
-})
-app.post('/maytry/user', async (request, response) => {
-  const { body } = request
-  const maytryRes = (await axios.post('http://localhost:5010/user', body)).data
-
-  response.send(maytryRes)
-})
-app.post('/maytry/user-orders', async (request, response) => {
-  const { body } = request
-  const maytryRes = (await axios.post('http://localhost:5010/user-orders', body)).data
-
-  response.send(maytryRes)
-})
 
 // Исследование Марсиан 367
 app.get('/martian-research-367/answers', async (request, response) => {
