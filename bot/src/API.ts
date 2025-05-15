@@ -234,19 +234,6 @@ app.post('/martian-research-367/answer', async (request, response) => {
   response.send(res)
 })
 
-// Arhi-tect-urno
-app.get('/arhi-tect-urno', async (request, response) => {
-  const res = (await axios.get(`http://localhost:4004/arhi-tect-urno`)).data
-
-  response.send(res)
-})
-app.get('/arhi-tect-urno/:url', async (request, response) => {
-  const { url } = request.params
-  const res = (await axios.get(`http://localhost:4004/arhi-tect-urno/${url}`)).data
-
-  response.send(res)
-})
-
 
 const initAPI = () => {
   app.listen(API_PORT, () => console.log(`Running on port ${API_PORT}`))
