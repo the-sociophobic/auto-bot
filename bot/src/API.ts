@@ -20,6 +20,7 @@ app.use(cors({
   origin: [
     'https://maytry.ru',
     'https://the-sociophobic.github.io',
+    'https://the-sociophobic.online',
   ]
 }))
 // const my_cors = (req, res, next) => {
