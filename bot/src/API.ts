@@ -235,6 +235,23 @@ app.post('/martian-research-367/answer', async (request, response) => {
 })
 
 
+// Art Plenus
+app.get('/art-plenus/:url', async (request, response) => {
+  const { url } = request.params
+  const maytryRes = (await axios.get(`http://localhost:5015/${url}`)).data
+
+  response.send(maytryRes)
+})
+
+app.post('/art-plenus/:url', async (request, response) => {
+  const { url } = request.params
+  const { body } = request
+  const maytryRes = (await axios.post(`http://localhost:5015/${url}`, body)).data
+
+  response.send(maytryRes)
+})
+
+
 const initAPI = () => {
   app.listen(API_PORT, () => console.log(`Running on port ${API_PORT}`))
 }
